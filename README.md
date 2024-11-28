@@ -103,8 +103,7 @@ Run `bun update` and update `.gitignore` to exclude the history after `npx sv cr
 Next we will setup Convex.
 Do not forget to create `convex.json` and configure the `functions` path.
 Do not forget to add the the generated `src/convex/_generated` folder to `.gitignore`.
-
-Run `bun update` and update `.gitignore` to exclude the history after `npx sv create` to install the dependencies. Afterwards, run `bun add convex convex-svelte` to install the Convex dependencies. Then run `bunx convex dev` to set up and log in to your GitHub account.
+Afterwards, run `bun add convex convex-svelte` to install the Convex dependencies. Then run `bunx convex dev` to set up and log in to your GitHub account.
 
 ```sh
 alien@Alex-MacBook-Air fileclusterUI % bunx convex dev
