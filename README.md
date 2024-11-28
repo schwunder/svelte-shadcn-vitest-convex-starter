@@ -103,3 +103,33 @@ Run `bun update` and update `.gitignore` to exclude the history after `npx sv cr
 Next we will setup Convex.
 Do not forget to create `convex.json` and configure the `functions` path.
 Do not forget to add the the generated `src/convex/_generated` folder to `.gitignore`.
+
+Run `bun update` and update `.gitignore` to exclude the history after `npx sv create` to install the dependencies. Afterwards, run `bun add convex convex-svelte` to install the Convex dependencies. Then run `bunx convex dev` to set up and log in to your GitHub account.
+
+```sh
+alien@Alex-MacBook-Air fileclusterUI % bunx convex dev
+? What would you like to configure? create a new project
+? Project name: fileclusterUI
+✔ Created project fileclusterui, manage it at https://dashboard.convex.dev/t/alexander-strasser/fileclusterui
+✔ Provisioned a dev deployment and saved its name as CONVEX_DEPLOYMENT to .env.local
+✔ URL as PUBLIC_CONVEX_URL to .env.local
+
+Write your Convex functions in convex/
+Give us feedback at https://convex.dev/community or support@convex.dev
+
+✔ 17:09:32 Convex functions ready! (3.39s)
+```
+
+Run the following command in the terminal to create sample data:
+
+```sh
+echo '{"text": "Buy groceries", "isCompleted": true}
+{"text": "Go for a swim", "isCompleted": true}
+{"text": "Integrate Convex", "isCompleted": false}' > sampleData.jsonl
+```
+
+Run the following command in the terminal to import the sample data:
+
+```sh
+bunx convex import --table tasks sampleData.jsonl
+```
