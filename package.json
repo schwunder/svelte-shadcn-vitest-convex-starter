@@ -11,7 +11,9 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"convex": "bunx convex dev",
-		"test": "vitest"
+		"test": "vitest",
+		"test:src": "vitest src/ --exclude 'src/convex/**'",
+		"test:convex": "vitest convex/"
 	},
 	"devDependencies": {
 		"@edge-runtime/vm": "^4.0.4",
