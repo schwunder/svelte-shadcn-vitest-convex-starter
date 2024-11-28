@@ -3,6 +3,10 @@
 	import { api } from '$convex/_generated/api';
 
 	const query = useQuery(api.tasks.get, {});
+
+	import { add } from '$lib/math';
+
+	const result = add(5, 3);
 </script>
 
 {#if query.isLoading}
@@ -10,6 +14,7 @@
 {:else if query.error}
 	failed to load: {query.error.toString()}
 {:else}
+	<p>Result: {result}</p>
 	<ul>
 		{#each query.data as task}
 			<li>
