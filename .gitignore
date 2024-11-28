@@ -29,3 +29,6 @@ vite.config.ts.timestamp-*
 *.njsproj
 *.sln
 *.sw?
+
+# Convex
+src/convex/_generated/
