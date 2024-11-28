@@ -133,3 +133,5 @@ Run the following command in the terminal to import the sample data:
 ```sh
 bunx convex import --table tasks sampleData.jsonl
 ```
+
+create a `.env` file and copy `PUBLIC_CONVEX_URL` from `.env.local`
