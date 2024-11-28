@@ -86,9 +86,11 @@ git init && test -f .gitignore || { echo '❌ .gitignore 📄 not found'; return
 
 - `git init` initializes a new 🗃️ Git repository.
 - The `test -f .gitignore` step ensures that a `.gitignore` 📄 exists to prevent unwanted 📄 from being tracked. If the 📄 is not found, an ❌ message is returned.
-- `git add .` stages all 📄 for commit, while `git commit -am "initial setup"` commits these changes with a descriptive message.
+- `git add .` stages all 📄 for commit, while `chore: initial SvelteKit project scaffold` commits these changes with a descriptive message.
 - The `gh 📦 create` 📝 uses the 🌐 GitHub CLI to create a new 🔒 repository named `[reponame]` on 🌐 GitHub.
 - `git remote add origin` links the local 🗃️ to the 🌐 GitHub repository using the specified URL.
 - Finally, `git push -u origin main` pushes your changes to the 🌐 repository on the `main` branch.
 
 Following these steps ensures that your 🏗️ project is properly versioned from the outset and safely stored in a remote 🌐 repository, making collaboration and future modifications much more manageable.
+
+Run `bun update` and update `.gitignore` to exclude the history after `npx sv create` to install the dependencies.
