@@ -15,6 +15,12 @@ Each 📝 is explained for clarity, ensuring even those less familiar with the �
 To start a new 🛠️ SvelteKit project, use the following 📝:
 
 ```sh
+bunx sv create [name]
+```
+
+or
+
+```sh
 npx sv create [name]
 ```
 
