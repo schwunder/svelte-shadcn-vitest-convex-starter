@@ -94,3 +94,6 @@ git init && test -f .gitignore || { echo '❌ .gitignore 📄 not found'; return
 Following these steps ensures that your 🏗️ project is properly versioned from the outset and safely stored in a remote 🌐 repository, making collaboration and future modifications much more manageable.
 
 Run `bun update` and update `.gitignore` to exclude the history after `npx sv create` to install the dependencies.
+Next we will setup Convex.
+Do not forget to create `convex.json` and configure the `functions` path.
+Do not forget to add the the generated `src/convex/_generated` folder to `.gitignore`.
