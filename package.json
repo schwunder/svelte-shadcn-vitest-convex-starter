@@ -14,11 +14,13 @@
 		"test": "vitest"
 	},
 	"devDependencies": {
+		"@edge-runtime/vm": "^4.0.4",
 		"@sveltejs/adapter-auto": "^3.3.1",
 		"@sveltejs/kit": "^2.8.5",
 		"@sveltejs/vite-plugin-svelte": "^4.0.2",
 		"@types/eslint": "^9.6.1",
 		"autoprefixer": "^10.4.20",
+		"convex-test": "^0.0.34",
 		"eslint": "^9.15.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.46.0",
