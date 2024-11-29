@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
+	import { Button } from '$ui/button';
 
 	export let count = 0;
 
@@ -8,8 +8,6 @@
 	}
 </script>
 
-<div>
-	<Button onclick={increment} variant="default" size="lg">
-		{count}
-	</Button>
-</div>
+<Button onclick={increment} variant="default" size="lg" aria-label="Counter" data-testid="counter">
+	{count}
+</Button>
