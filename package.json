@@ -14,7 +14,9 @@
 		"test": "vitest",
 		"test:src": "vitest src/ --exclude 'src/convex/**' --exclude 'src/lib/components/**'",
 		"test:convex": "vitest convex/",
-		"test:components": "vitest src/lib/components/"
+		"test:components": "vitest src/lib/components/",
+		"test:components:counter": "vitest src/lib/components/Counter.spec.ts",
+		"test:components:article": "vitest src/lib/components/Article.spec.ts"
 	},
 	"devDependencies": {
 		"@edge-runtime/vm": "^4.0.4",
