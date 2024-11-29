@@ -1,25 +1,18 @@
-import { flushSync, mount, unmount } from 'svelte';
-import { expect, test } from 'vitest';
+import { describe, it, expect } from 'vitest';
+import { render, fireEvent } from '@testing-library/svelte';
 import Counter from './Counter.svelte';
 
-test('Counter component', () => {
-	// Mount the component
-	const component = mount(Counter, {
-		target: document.body,
-		props: { count: 0 }
+describe('Counter', () => {
+	it('displays initial count', () => {
+		const result = render(Counter);
+		expect(result.container.innerHTML).toContain('0');
 	});
 
-	// Check initial state
-	expect(document.body.innerHTML).toContain('<button>0</button>');
-
-	// Simulate a button click
-	const button = document.querySelector('button');
-	button?.click();
-	flushSync();
-
-	// Check updated state
-	expect(document.body.innerHTML).toContain('<button>1</button>');
-
-	// Unmount the component
-	unmount(component);
+	it('increments when clicked', async () => {
+		const result = render(Counter);
+		const button = result.container.querySelector('button');
+		if (!button) throw new Error('Button not found');
+		await fireEvent.click(button);
+		expect(result.container.innerHTML).toContain('1');
+	});
 });
