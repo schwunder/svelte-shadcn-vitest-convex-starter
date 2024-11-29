@@ -2,6 +2,7 @@
 	import { useQuery } from 'convex-svelte';
 	import { api } from '$convex/_generated/api';
 	import Counter from '$components/Counter.svelte';
+	import Article from '$components/Article.svelte';
 	const query = useQuery(api.tasks.get, {});
 
 	import { add } from '$lib/math';
@@ -16,6 +17,7 @@
 {:else}
 	<p>Result: {result}</p>
 	<Counter />
+	<Article title="Hello" text="This is a test" />
 	<ul>
 		{#each query.data as task}
 			<li>
