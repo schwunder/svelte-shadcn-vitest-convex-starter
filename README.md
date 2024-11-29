@@ -141,3 +141,4 @@ now we are trying to get convex' native testing to work.
 we will have two different enviroments defined in the configuration.
 next one has to add a svelte component to the project.
 afterwards one has to test that component via the testing libary for svelte.
+okay from now on i will only write in that one kind of speech. because of the lotr meme.
