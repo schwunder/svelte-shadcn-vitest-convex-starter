@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Button } from '$lib/components/ui/button';
+
 	export let count = 0;
 
 	function increment() {
@@ -6,6 +8,8 @@
 	}
 </script>
 
-<button on:click={increment}>
-	{count}
-</button>
+<div>
+	<Button onclick={increment} variant="default" size="lg">
+		{count}
+	</Button>
+</div>
