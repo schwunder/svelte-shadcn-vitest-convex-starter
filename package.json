@@ -12,7 +12,7 @@
 		"lint": "prettier --check . && eslint .",
 		"convex": "bunx convex dev",
 		"test": "vitest",
-		"test:src": "vitest src/ --exclude 'src/convex/**'",
+		"test:src": "vitest src/ --exclude 'src/convex/**' --exclude 'src/lib/components/**'",
 		"test:convex": "vitest convex/",
 		"test:components": "vitest src/lib/components/"
 	},
