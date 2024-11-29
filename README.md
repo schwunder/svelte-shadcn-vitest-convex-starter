@@ -191,3 +191,5 @@ it could add the the dev dependencies to the project.
 ◇ Config file components.json updated
 │
 └ Success! Component installation completed.
+
+one now has to test that component via the testing libary for svelte.s
