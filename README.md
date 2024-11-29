@@ -144,3 +144,50 @@ afterwards one has to test that component via the testing libary for svelte.
 okay from now on i will only write in that one kind of speech. because of the lotr meme.
 next one has to add shadcn components to the project.
 one has to do it with cli.
+one hast to do this before executing the cli. it may not be able to install dependencies probably.
+
+alien@MacBookAir fileclusterUI % bun add bits-ui@next
+[0.07ms] ".env.local", ".env"
+bun add v1.1.37 (8ca0eb83)
+
+installed bits-ui@1.0.0-next.64
+
+it could add the the dev dependencies to the project.
+
+┌ shadcn-svelte v1.0.0-next.4
+│
+◇ Which style would you like to use?
+│ Default
+│
+◇ Which base color would you like to use?
+│ Zinc
+│
+◇ Where is your global CSS file? (this file will be overwritten)
+│ src/app.css
+│
+◇ Where is your Tailwind config located? (this file will be overwritten)
+│ tailwind.config.ts
+│
+◇ Configure the import alias for components:
+│ $lib/components
+│
+◇ Configure the import alias for utils:
+│ $lib/utils
+│
+◇ Configure the import alias for hooks:
+│ $lib/hooks
+│
+◇ Configure the import alias for ui:
+┌ shadcn-svelte v1.0.0-next.4
+│
+◇ Components to install:
+│ button
+│
+◇ Ready to install components and dependencies?
+│ Yes
+│
+◇ button installed at src/lib/components/ui/button
+│
+◇ Config file components.json updated
+│
+└ Success! Component installation completed.
