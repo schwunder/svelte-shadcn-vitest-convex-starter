@@ -13,7 +13,8 @@
 		"convex": "bunx convex dev",
 		"test": "vitest",
 		"test:src": "vitest src/ --exclude 'src/convex/**'",
-		"test:convex": "vitest convex/"
+		"test:convex": "vitest convex/",
+		"test:components": "vitest src/lib/components/"
 	},
 	"devDependencies": {
 		"@edge-runtime/vm": "^4.0.4",

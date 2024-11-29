@@ -9,6 +9,8 @@ export default defineConfig({
 		environmentMatchGlobs: [
 			// all tests in convex/ will run in edge-runtime
 			['convex/**', 'edge-runtime'],
+			// Make this pattern more specific to match your component tests
+			['src/lib/components/**/*.{spec,test}.{js,ts}', 'jsdom'],
 			// all other tests use node
 			['**', 'node']
 		],
@@ -16,5 +18,11 @@ export default defineConfig({
 	},
 	define: {
 		'import.meta.vitest': 'undefined'
-	}
+	},
+	// Tell Vitest to use the `browser` entry points in `package.json` files, even though it's running in Node
+	resolve: process.env.VITEST
+		? {
+				conditions: ['browser']
+			}
+		: undefined
 });
