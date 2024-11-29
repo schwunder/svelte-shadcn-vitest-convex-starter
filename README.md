@@ -197,3 +197,7 @@ one now has to test that component via the testing libary for svelte.s
 one now has to add an article component to the project.
 which uses the tailwind typography plugin.
 tests for article component.
+
+one now has to add a tag toggle component to the project.
+which uses the shadcn toggle and toggle group component.
+tests for tag toggle component.
