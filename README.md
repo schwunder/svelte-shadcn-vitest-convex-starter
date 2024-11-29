@@ -193,3 +193,6 @@ it could add the the dev dependencies to the project.
 └ Success! Component installation completed.
 
 one now has to test that component via the testing libary for svelte.s
+
+one now has to add an article component to the project.
+which uses the tailwind typography plugin.
