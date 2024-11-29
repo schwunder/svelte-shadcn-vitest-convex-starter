@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { useQuery } from 'convex-svelte';
 	import { api } from '$convex/_generated/api';
-
+	import Counter from '$components/Counter.svelte';
 	const query = useQuery(api.tasks.get, {});
 
 	import { add } from '$lib/math';
@@ -15,6 +15,7 @@
 	failed to load: {query.error.toString()}
 {:else}
 	<p>Result: {result}</p>
+	<Counter />
 	<ul>
 		{#each query.data as task}
 			<li>
