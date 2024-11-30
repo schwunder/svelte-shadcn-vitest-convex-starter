@@ -205,3 +205,7 @@ tests for tag toggle component.
 one now has to add a simple carousel component to the project.
 tests for carousel component.
 one should not forget to install the embla-carousel-svelte dependency before.
+
+one now has to add a filecard to the project.
+tests for filecard component.
+one should not forget to add the shadcn components before.
