@@ -5,11 +5,24 @@ import { superValidate } from 'sveltekit-superforms';
 import { folderSchema } from '$schemas/folder';
 import { zod } from 'sveltekit-superforms/adapters';
 
-// Add NodeList.prototype.map polyfill for JSDOM
+// Mock SvelteKit's form handling
+vi.mock('@sveltejs/kit', () => ({
+	enhance: () => ({
+		destroy: vi.fn()
+	})
+}));
+
+// Mock browser environment
 beforeAll(() => {
 	if (!NodeList.prototype.map) {
 		NodeList.prototype.map = Array.prototype.map;
 	}
+
+	// Mock window.location
+	Object.defineProperty(window, 'location', {
+		value: { pathname: '/' },
+		writable: true
+	});
 });
 
 describe('FolderForm', () => {
@@ -42,31 +55,24 @@ describe('FolderForm', () => {
 		expect(getByTestId('folder-path-label')).toBeTruthy();
 	});
 
-	it('handles form submission with valid input', async () => {
+	it('updates input value correctly', async () => {
 		const { getByTestId } = await setupForm();
 		const input = getByTestId('folder-path-input') as HTMLInputElement;
-		const submitButton = getByTestId('submit-button') as HTMLButtonElement;
 
 		await fireEvent.input(input, { target: { value: 'test-folder' } });
-		await fireEvent.click(submitButton);
-
-		// Initially the button should be enabled after input
-		expect(submitButton.disabled).toBe(false);
+		expect(input.value).toBe('test-folder');
 	});
 
-	it('validates folder path length', async () => {
+	it('enables submit button when form is tainted', async () => {
 		const { getByTestId } = await setupForm();
 		const input = getByTestId('folder-path-input') as HTMLInputElement;
 		const submitButton = getByTestId('submit-button') as HTMLButtonElement;
 
-		// Test too short input
-		await fireEvent.input(input, { target: { value: 'a' } });
+		// Initially button should be disabled
+		expect(submitButton.disabled).toBe(true);
 
-		// Test too long input
-		const longPath = 'a'.repeat(51);
-		await fireEvent.input(input, { target: { value: longPath } });
-
-		// Button should be enabled when form is tainted
+		// After input, button should be enabled
+		await fireEvent.input(input, { target: { value: 'test-folder' } });
 		expect(submitButton.disabled).toBe(false);
 	});
 });
