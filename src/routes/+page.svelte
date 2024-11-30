@@ -5,6 +5,7 @@
 	import Article from '$components/Article.svelte';
 	import TagToggle from '$components/TagToggle.svelte';
 	import SimpleCarousel from '$components/SimpleCarousel.svelte';
+	import FileCard from '$components/FileCard.svelte';
 	const query = useQuery(api.tasks.get, {});
 
 	import { add } from '$lib/math';
@@ -22,6 +23,7 @@
 	<Article title="Hello" text="This is a test" />
 	<TagToggle />
 	<SimpleCarousel orientation="vertical" />
+	<FileCard />
 	<ul>
 		{#each query.data as task}
 			<li>
