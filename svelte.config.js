@@ -16,7 +16,8 @@ const config = {
 			$convex: 'src/convex',
 			$components: 'src/lib/components',
 			$ui: 'src/lib/components/ui',
-			$types: 'src/types'
+			$types: 'src/types',
+			$schemas: 'src/lib/schemas'
 		}
 	}
 };
