@@ -216,3 +216,4 @@ aswell as a schemas and aliases for schemas folder.
 to properly work with schemas one needed the zod library.
 
 now one hast to try to get superforms forms snap and shadcn forms to work.
+also one has to add a test for the folder form component.
