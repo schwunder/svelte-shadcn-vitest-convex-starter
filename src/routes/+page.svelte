@@ -6,9 +6,13 @@
 	import TagToggle from '$components/TagToggle.svelte';
 	import SimpleCarousel from '$components/SimpleCarousel.svelte';
 	import FileCard from '$components/FileCard.svelte';
-	const query = useQuery(api.tasks.get, {});
-
+	import FolderForm from '$components/FolderForm.svelte';
 	import { add } from '$lib/math';
+	import type { PageData } from './$types';
+	import { Toaster } from 'svelte-sonner';
+
+	export let data: PageData;
+	const query = useQuery(api.tasks.get, {});
 
 	const result = add(5, 3);
 </script>
@@ -24,6 +28,7 @@
 	<TagToggle />
 	<SimpleCarousel orientation="vertical" />
 	<FileCard />
+	<FolderForm form={data.form} />
 	<ul>
 		{#each query.data as task}
 			<li>
@@ -34,3 +39,11 @@
 		{/each}
 	</ul>
 {/if}
+
+<Toaster
+	richColors={true}
+	closeButton={true}
+	theme="light"
+	position="top-right"
+	data-testid="toaster"
+/>
