@@ -7,7 +7,7 @@
 	import SimpleCarousel from '$components/SimpleCarousel.svelte';
 	import FileCard from '$components/FileCard.svelte';
 	import FolderForm from '$components/FolderForm.svelte';
-	import { add } from '$lib/math';
+	import { add } from '$utilities/math';
 	import type { PageData } from './$types';
 	import { Toaster } from 'svelte-sonner';
 
