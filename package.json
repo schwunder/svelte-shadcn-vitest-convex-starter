@@ -17,7 +17,8 @@
 		"test:components": "vitest src/lib/components/",
 		"test:components:counter": "vitest src/lib/components/Counter.spec.ts",
 		"test:components:article": "vitest src/lib/components/Article.spec.ts",
-		"test:components:tag-toggle": "vitest src/lib/components/TagToggle.spec.ts"
+		"test:components:tag-toggle": "vitest src/lib/components/TagToggle.spec.ts",
+		"test:components:carousel": "vitest src/lib/components/SimpleCarousel.spec.ts"
 	},
 	"devDependencies": {
 		"@edge-runtime/vm": "^4.0.4",
