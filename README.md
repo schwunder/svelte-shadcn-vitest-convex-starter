@@ -201,3 +201,7 @@ tests for article component.
 one now has to add a tag toggle component to the project.
 which uses the shadcn toggle and toggle group component.
 tests for tag toggle component.
+
+one now has to add a simple carousel component to the project.
+tests for carousel component.
+one should not forget to install the embla-carousel-svelte dependency before.
