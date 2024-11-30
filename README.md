@@ -209,3 +209,8 @@ one should not forget to install the embla-carousel-svelte dependency before.
 one now has to add a filecard to the project.
 tests for filecard component.
 one should not forget to add the shadcn components before.
+
+now since one want to add forms. one noticed some project related shortcomings.
+one now has added types and aliases for types
+aswell as a schemas and aliases for schemas folder.
+to properly work with schemas one needed the zod library.
