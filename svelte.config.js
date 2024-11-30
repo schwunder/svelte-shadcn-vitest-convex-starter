@@ -15,7 +15,8 @@ const config = {
 		alias: {
 			$convex: 'src/convex',
 			$components: 'src/lib/components',
-			$ui: 'src/lib/components/ui'
+			$ui: 'src/lib/components/ui',
+			$types: 'src/types'
 		}
 	}
 };
