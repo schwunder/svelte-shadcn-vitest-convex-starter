@@ -214,3 +214,5 @@ now since one want to add forms. one noticed some project related shortcomings.
 one now has added types and aliases for types
 aswell as a schemas and aliases for schemas folder.
 to properly work with schemas one needed the zod library.
+
+now one hast to try to get superforms forms snap and shadcn forms to work.
