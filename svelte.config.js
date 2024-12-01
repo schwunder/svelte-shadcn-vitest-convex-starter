@@ -18,7 +18,8 @@ const config = {
 			$ui: 'src/lib/components/ui',
 			$types: 'src/types',
 			$schemas: 'src/lib/schemas',
-			$utilities: 'src/lib/utilities'
+			$utilities: 'src/lib/utilities',
+			$hooks: 'src/lib/hooks'
 		}
 	}
 };
