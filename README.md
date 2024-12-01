@@ -217,3 +217,11 @@ to properly work with schemas one needed the zod library.
 
 now one hast to try to get superforms forms snap and shadcn forms to work.
 also one has to add a test for the folder form component.
+
+now one has to add a page with a server action.
+to use sveltes ways of server side processing.
+there is only one real use case for server actions so far
+and that is to use a private api key
+one built the folder api to route properly to the page
+aswell as the server side sript to call the open ai api.
+now one can use its open ai api key to generate a response.
