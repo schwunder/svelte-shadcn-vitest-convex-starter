@@ -19,7 +19,8 @@ const config = {
 			$types: 'src/types',
 			$schemas: 'src/lib/schemas',
 			$utilities: 'src/lib/utilities',
-			$hooks: 'src/lib/hooks'
+			$hooks: 'src/lib/hooks',
+			$server: 'src/lib/server'
 		}
 	}
 };
