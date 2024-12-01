@@ -13,7 +13,6 @@
 
 	export let data: PageData;
 	const query = useQuery(api.tasks.get, {});
-
 	const result = add(5, 3);
 </script>
 
@@ -29,6 +28,7 @@
 	<SimpleCarousel orientation="vertical" />
 	<FileCard />
 	<FolderForm form={data.form} />
+	<!-- <p>OpenAI says: {data.openAIData}</p> -->
 	<ul>
 		{#each query.data as task}
 			<li>

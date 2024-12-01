@@ -6,7 +6,13 @@ import { folderSchema } from '$schemas/folder';
 // Define schema at module level for caching
 const schema = zod(folderSchema);
 
-export const load = (async () => {
+export const load = (async ({ fetch }) => {
 	const form = await superValidate(schema);
-	return { form };
+	const openAIResponse = await fetch('/api/open-ai');
+	const openAIData = await openAIResponse.text();
+
+	return {
+		openAIData,
+		form
+	};
 }) satisfies PageLoad;
