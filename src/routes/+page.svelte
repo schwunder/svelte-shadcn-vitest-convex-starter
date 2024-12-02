@@ -28,7 +28,8 @@
 	<SimpleCarousel orientation="vertical" />
 	<FileCard />
 	<FolderForm form={data.form} />
-	<!-- <p>OpenAI says: {data.openAIData}</p> -->
+	<p>OpenAI says: {data.openAIData}</p>
+	<p>Bun shell says: {data.shellData}</p>
 	<ul>
 		{#each query.data as task}
 			<li>
