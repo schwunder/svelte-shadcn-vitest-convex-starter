@@ -20,7 +20,8 @@
 		"test:components:tag-toggle": "vitest src/lib/components/TagToggle.spec.ts",
 		"test:components:carousel": "vitest src/lib/components/SimpleCarousel.spec.ts",
 		"test:components:filecard": "vitest src/lib/components/FileCard.spec.ts",
-		"test:components:form": "vitest src/lib/components/Form.spec.ts"
+		"test:components:form": "vitest src/lib/components/Form.spec.ts",
+		"test:components:lightswitch": "vitest src/lib/components/LightSwitch.spec.ts"
 	},
 	"devDependencies": {
 		"@edge-runtime/vm": "^4.0.4",
