@@ -225,3 +225,7 @@ and that is to use a private api key
 one built the folder api to route properly to the page
 aswell as the server side sript to call the open ai api.
 now one can use its open ai api key to generate a response.
+
+now one has to try to get bun shell to work.
+first one has to add the types.
+then use a svelte route via a server side ts sricpt to execute a shell command.
