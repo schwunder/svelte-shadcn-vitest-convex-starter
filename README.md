@@ -229,3 +229,8 @@ now one can use its open ai api key to generate a response.
 now one has to try to get bun shell to work.
 first one has to add the types.
 then use a svelte route via a server side ts sricpt to execute a shell command.
+
+now one has to add a lightswitch and set dark mode to default.
+one has to be able to develop at night without your eyes getting hurt.
+first one hast to add the mode watcher and the icons.
+the one has to create a component and add it to the page
