@@ -6,8 +6,14 @@
 	import { Button } from '$ui/button';
 </script>
 
-<Button onclick={toggleMode} variant="outline" size="icon">
-	<Sun />
-	<Moon />
-	<span class="sr-only">Toggle theme</span>
+<Button
+	onclick={toggleMode}
+	variant="outline"
+	size="icon"
+	aria-label="Toggle theme"
+	data-testid="theme-toggle-button"
+>
+	<Sun data-testid="theme-toggle-sun-icon" aria-hidden="true" aria-label="Light mode" />
+	<Moon data-testid="theme-toggle-moon-icon" aria-hidden="true" aria-label="Dark mode" />
+	<span class="sr-only" data-testid="theme-toggle-text">Toggle theme</span>
 </Button>
