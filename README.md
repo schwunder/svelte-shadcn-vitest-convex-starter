@@ -86,9 +86,15 @@ echo '{"text": "Buy groceries", "isCompleted": true}
 bun x convex import --table tasks sampleData.jsonl
 ```
 
-### Adjust Tailwind Configuration 🌱
+### ShadCN Theme 🌱
 
-Modify `tailwind.config.ts` and `components.json` to match your desired theme.
+Replace your existing `@layer base` in your `app.css` with the code copied from the [ShadCN theming page](https://next.shadcn-svelte.com/themes):
+
+```css
+@layer base {
+	/* ...copied variables... */
+}
+```
 
 ### Start Development Server 🚀
 
