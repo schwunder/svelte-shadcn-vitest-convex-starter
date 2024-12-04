@@ -252,3 +252,11 @@ and the enviroment variables that need to be set to make the project work.
 i.e. the convex url and the open ai api key.
 convex url is in the .env.local file. and has to be moved to the .env file.
 this should be in readme.md.
+
+what will not be needed in the readme is everything i have done to make it work that will
+be moved to process.md. like the output of all the cli commands, cmd commands and the commit history.
+all the paragraphs that use one kind of speech should be moved to process.md.
+
+also here an example of how the readme should look like.
+will be simplified.
+this is a playground/template. to learn how to built a web app. i used sv to create a svelte project. it has typescript support. its package manager is bun. its formatter is prettier. its linter is eslint. it uses aliases. it can do addition. it uses vitest for testing. the test are in-source. it uses convex to store data. it has some sample data. convex' native testing is supported. svelte component testing is supported. it uses tailwindcss v4. it also uses plugins for tailwindcss. experimental. it uses shadcn components. experimental. it has a ui component made of shadcn components like card and carousel. from now on it uses conventional commits. todo retroactively change the commit messages. it uses zod schemas to validate data
