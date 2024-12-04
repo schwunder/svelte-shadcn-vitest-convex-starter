@@ -1,12 +1,7 @@
 <script lang="ts">
 	import { useQuery } from 'convex-svelte';
 	import { api } from '$convex/_generated/api';
-	import Counter from '$components/Counter.svelte';
-	import Article from '$components/Article.svelte';
-	import TagToggle from '$components/TagToggle.svelte';
-	import SimpleCarousel from '$components/SimpleCarousel.svelte';
-	import FileCard from '$components/FileCard.svelte';
-	import FolderForm from '$components/FolderForm.svelte';
+	import { Counter, Article, TagToggle, SimpleCarousel, FileCard, FolderForm } from '$components';
 	import { add } from '$utilities/math';
 	import type { PageData } from './$types';
 	import { Toaster } from 'svelte-sonner';
