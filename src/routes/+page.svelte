@@ -2,7 +2,7 @@
 	import { useQuery } from 'convex-svelte';
 	import { api } from '$convex/_generated/api';
 	import { Counter, Article, TagToggle, SimpleCarousel, FileCard, FolderForm } from '$components';
-	import { add } from '$utilities/math';
+	import { add } from '$utilities';
 	import type { PageData } from './$types';
 	import { Toaster } from 'svelte-sonner';
 

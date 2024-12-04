@@ -2,7 +2,7 @@ import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { folderSchema } from '$schemas/folder';
+import { folderSchema } from '$schemas';
 
 // Define schema at module level for caching
 const schema = zod(folderSchema);
