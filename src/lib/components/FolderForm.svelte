@@ -2,7 +2,7 @@
 	import * as Form from '$ui/form';
 	import { Input } from '$ui/input';
 	import { Button } from '$ui/button';
-	import { folderSchema } from '$lib/schemas/folder';
+	import { folderSchema } from '$lib/schemas';
 	import type { SuperValidated, Infer } from 'sveltekit-superforms';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as Carousel from '$ui/carousel/index.js';
+	import * as Carousel from '$ui/carousel';
 	import type { CarouselAPI } from '$ui/carousel/context.js';
 
 	let { orientation = 'horizontal' } = $props<{
