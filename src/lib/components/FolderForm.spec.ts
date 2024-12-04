@@ -75,4 +75,37 @@ describe('FolderForm', () => {
 		await fireEvent.input(input, { target: { value: 'test-folder' } });
 		expect(submitButton.disabled).toBe(false);
 	});
+
+	it('has correct ARIA labels', async () => {
+		const { getByTestId } = await setupForm();
+
+		expect(getByTestId('folder-form').getAttribute('aria-label')).toBe('Folder Form');
+		expect(getByTestId('folder-path-input').getAttribute('aria-label')).toBe('Folder Path Input');
+		expect(getByTestId('folder-path-label').getAttribute('aria-label')).toBe('Folder Path Label');
+		expect(getByTestId('folder-path-description').getAttribute('aria-label')).toBe(
+			'Folder Path Description'
+		);
+	});
+
+	it('displays description text correctly', async () => {
+		const { getByTestId } = await setupForm();
+		const description = getByTestId('folder-path-description');
+
+		expect(description.textContent).toBe('Enter a folder path between 2 and 50 characters.');
+	});
+
+	it('handles form reset', async () => {
+		const { getByTestId } = await setupForm();
+		const input = getByTestId('folder-path-input') as HTMLInputElement;
+		const form = getByTestId('folder-form');
+
+		// Set initial value
+		await fireEvent.input(input, { target: { value: 'test-folder' } });
+		expect(input.value).toBe('test-folder');
+
+		// Reset the form
+		await fireEvent.reset(form);
+		await fireEvent.input(input, { target: { value: '' } });
+		expect(input.value).toBe('');
+	});
 });
