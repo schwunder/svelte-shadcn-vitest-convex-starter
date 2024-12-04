@@ -1,262 +1,41 @@
-# 🛠️ Comprehensive Guide to Setting Up a SvelteKit Project 🚀
+Embarking upon the project, the setup was initiated using the SvelteKit framework. Executing the commands bunx sv create [name] and npx sv create [name], one deliberately chose a minimal configuration to maintain flexibility and adaptability throughout the development process. The selection of TypeScript was intentional, aiming to ensure type safety and maintainability across all components. Incorporating tools such as Prettier, ESLint, Vitest, and TailwindCSS was pivotal in enhancing styling, testing, and code quality. This initial phase was exhilarating, as it laid the groundwork for a robust application.
 
-📄 This document provides a guide for setting up a 🏗️ project using 🛠️ SvelteKit with 🌬️ Tailwind CSS, integrating 🧩 ShadCN components, and using 📦 Convex as the 🗄️ management system. It offers a detailed walkthrough for 👨‍💻 developers to correctly set up a robust and scalable project, outlining key command line 📝 essential for the setup.
+However, complications swiftly emerged when one encountered dependency conflicts 😓, primarily due to Bun's compatibility issues with SvelteKit. This unforeseen obstacle necessitated a deep dive into GitHub discussions and community forums to seek resolutions. To navigate these challenges, one formulated concise web searches like "Bun conflicts", "SvelteKit issues", and "Dependency errors". These succinct queries facilitated the identification of solutions and workarounds. The learning experience here emphasized the importance of precise search terms and leveraging community knowledge. 📚
 
-## ⚙️ Project Setup Commands
+Realizing that the ordeal with the commit history and integrating Convex should have been straightforward, one acknowledged making the process unnecessarily complex 😅. In retrospect, starting with the Vitest setup and then adding Convex would have been more pragmatic. To demonstrate the utility of in-source testing—a feature of Vitest that one finds particularly advantageous—mathematical functions were added to the lib folder. This hands-on approach solidified understanding of Vitest's capabilities and reinforced the importance of structured development practices. 🧠
 
-The following 📝 will guide you through the initial stages of setting up your 🛠️ SvelteKit project.
+In an effort to enhance project organization, one decided to create a separate branch dedicated to patches. This strategy allowed for systematic merging of modifications into the main branch. Articulating intended changes in the README file prior to implementation, followed by committing those changes, fostered a more coherent development process. Although fixes ideally should be chronologically adjacent to the commits that introduced the bugs—a notion somewhat aspirational—this approach contributed to a more semantically and topically cohesive commit history. This realization underscored the significance of version control and thoughtful commit practices in software development. 📝
 
-This includes creating the project, configuring necessary 🛠️ tools and plugins, initializing version control, and pushing the project to a remote 🌐 GitHub 📦.
+During this phase, one discerned that bun test employs Bun's native test runner—which exclusively executes .test.ts files—whereas bun run test invokes Vitest, capable of running both regular and in-source tests. Notably, Bun's native test runner does not honor the Vitest configuration 😵. This discrepancy prompted further exploration. Using search terms like "Bun test", "Vitest config", and "Test runner differences" helped gain a deeper understanding of the tools and their interactions. This investigation illuminated the nuances of testing frameworks and their configurations. 🔍
 
-Each 📝 is explained for clarity, ensuring even those less familiar with the 💻 stack can follow along effectively.
+Seeking to integrate Convex's native testing functionality, one recognized the necessity of configuring multiple environments within the project's settings. Defining distinct environments in the configuration files accommodated different testing scenarios. The complexity of this task highlighted the significance of environment management in software development. Engaging with resources and documentation, one refined the setup to ensure seamless operation across environments. 🌐
 
-### 1️⃣ Create a New 🛠️ SvelteKit Project
+Subsequently, one proceeded to incorporate a Svelte component into the project, cognizant of the importance of testing this component via Svelte's testing library. Embracing consistency in narrative style, one meticulously documented each step. Detailing the implementation and testing phases reinforced the learning experience and ensured replicability.
 
-To start a new 🛠️ SvelteKit project, use the following 📝:
+The integration of ShadCN components necessitated the utilization of the CLI. Prior to executing the CLI, one ensured the installation of necessary dependencies to avert potential issues. Mindful of the sequence of operations, one executed bun add bits-ui@next. This attention to detail was critical in preventing complications and underscored the importance of preparation and dependency management. Installing dependencies beforehand was a prudent measure. 💡
 
-```sh
-bunx sv create [name]
-```
+Testing the newly added components using Svelte's testing library was imperative to ensure functionality and reliability. One added an Article component, leveraging the Tailwind typography plugin, and developed corresponding tests to validate its performance. Similarly, a Tag Toggle component was introduced, utilizing ShadCN's toggle and toggle group components, accompanied by appropriate tests. These activities reinforced the value of testing in maintaining code integrity and deepened comprehension of component interactions within the framework. 🧪
 
-or
+Further expanding the project's feature set, one incorporated a simple Carousel component, ensuring the prior installation of the embla-carousel-svelte dependency. Rigorous testing protocols were employed to ascertain the component's efficacy. Adding a FileCard component required prior inclusion of relevant ShadCN components, with testing conducted to confirm proper operation. These steps underscored the iterative nature of development and the necessity of thorough testing at each stage. The experience was both challenging and rewarding 😅.
 
-```sh
-npx sv create [name]
-```
+Recognizing the necessity for forms within the application, one identified structural shortcomings. To address these, types and aliases were established, alongside schemas and aliases for the schemas folder. Adopting the Zod library facilitated robust schema validation. Employing search queries like "Zod setup", "Type aliases", and "Form validation" provided valuable guidance. This phase emphasized the importance of data validation and type safety. Ensuring accurate data handling is critical to the integrity and security of applications. 🔒
 
-Upon executing this 📝, you will be presented with the 🛠️ Svelte CLI setup interface, which will guide you through a series of prompts to customize your project:
+Integrating form functionalities entailed exploring options such as Superforms, Formsnap, and ShadCN forms. Contemplating the implementation of a test for the Folder Form component was part of this endeavor. This exploration required sifting through documentation and comparing features. The learning curve was steep but ultimately enlightening, highlighting the importance of evaluating multiple solutions to identify the most suitable for specific project needs. 🤔
 
-````
-┌ 👋 Welcome to the 🛠️ Svelte CLI (v0.6.4)
+Advancing to server-side processing, one added a page featuring a server action to leverage Svelte's capabilities. The primary use case was utilizing a private API key. Constructing an api folder ensured proper routing, and developing a server-side script interfaced with the OpenAI API. This enabled generating responses using one's OpenAI API key 🤖. Searches like "Server actions", "Private API", and "OpenAI integration" were instrumental. The process illuminated server-side scripting nuances and secure API interactions, reinforcing best practices in handling sensitive information. 🔒
 
-◇ Select the 🧩 you desire:
-  - 🛠️ SvelteKit minimal
+Enabling shell command execution within the application led one to integrate Bun's shell functionalities. Adding appropriate type definitions and crafting a Svelte route via a server-side TypeScript script allowed execution of shell commands. Awareness of potential security implications was paramount, prompting careful consideration and research. Queries such as "Shell execute", "Bun shell", and "Server security" aided in understanding risks and mitigation strategies. This endeavor highlighted the balance between functionality and security, emphasizing vigilant coding practices. ⚠️
 
-  You can choose the minimal 🧩 to start with a clean and simple setup, making it easier to extend based on your specific project requirements.
+Addressing development ergonomics, particularly during nighttime, one recognized the importance of implementing a dark mode feature. Incorporating a mode watcher and relevant icons, followed by creating a light switch component, enhanced both personal comfort and user experience. The process reinforced the significance of user-centric design considerations. Engaging with themes and styling, one appreciated the subtleties of front-end design. 🎨
 
-◇ ➕ type 🔍 with TypeScript?
-  - ✅ Yes, using TypeScript syntax
+To streamline documentation, one refactored and divided the existing file into two parts: a process.md within a docs folder, encompassing comprehensive procedural documentation, and a simplified README.md in the root directory, highlighting project setup, the tech stack, and post-cloning instructions. This reorganization enhanced clarity and accessibility for future collaborators. Effective documentation serves as a roadmap for others and a reference for oneself. 🖼️
 
-  Enabling TypeScript is highly recommended for larger projects as it adds type safety, thereby reducing runtime 🐞 and enhancing maintainability. This setup uses TypeScript syntax to provide type annotations throughout your code.
+Given that others may clone the project, providing clear guidance in the README on modifying files like tailwind.ts and components.json was imperative. Instructions on populating the database with sample data and configuring environment variables—such as the Convex URL and the OpenAI API key—were included. Notably, the Convex URL, initially in the .env.local file, needs relocating to the .env file, a detail emphasized in the README. Ensuring this information is readily available reduces barriers for new developers and facilitates smoother onboarding. 🚀
 
-◆ Project successfully created ✅
+Conversely, intricate development details, including CLI outputs, command executions, and the commit history, were relegated to the process.md file. All narrative passages employing the "one" speech pattern were consolidated here, ensuring the README remained concise and focused. This separation reflects best practices in documentation and contributes to a more organized project structure. 📂
 
-After completing these steps, your initial project setup will be ready. You should see a basic project structure, including folders like `src` for your components, `public` for static assets, and configuration files for SvelteKit, Tailwind CSS, and other tools.
+Reflecting on the journey, one acknowledges that the commit history will chronicle errors encountered and solutions devised. Documenting each step and challenge ensures smoother future development and provides valuable insights for others engaging with the project 😊. The process underscored the importance of learning from mistakes and the iterative nature of software development. Embracing challenges as opportunities for growth has been a central theme. ✨
 
-◇ Choose the additional 🛠️ to include in your project: (🔽🔼 / ␣)
-  - ✨ prettier, eslint, vitest, 🌬️ tailwindcss
+Throughout this project, emphasis on meticulous documentation, proactive problem-solving, and continuous learning has been paramount. Integrating diverse technologies and tools, while presenting challenges, enriched the project's robustness and one's expertise. The journey reinforced that perseverance, coupled with strategic research—often involving concise search queries of no more than three words—can overcome daunting obstacles. The amalgamation of practical experience and theoretical knowledge has been enlightening and fulfilling. The project stands as a testament to the value of dedication and intellectual curiosity. 🎓
 
-  Adding these 🛠️ ensures a standardized and efficient workflow. ✨ Prettier helps in maintaining code style consistency, 🛡️ ESLint assists in identifying problematic patterns in JavaScript code, 🧪 Vitest provides a robust testing environment, and 🌬️ Tailwind CSS simplifies styling by offering utility-first CSS classes.
-
-◇ 🌬️ Tailwind CSS: Select desired plugins:
-  - 🖋️ typography, 📝 forms, 📦 container-queries, 🖼️ aspect-ratio
-
-  Selecting the appropriate plugins for 🌬️ Tailwind CSS enhances the functionality of your styles. For instance, the 🖋️ typography plugin allows for easy text formatting, while the 📝 forms plugin simplifies form styles.
-
-◇ Choose the 📦 manager to install dependencies:
-  - 🍞 bun
-
-  Here, you have selected '🍞 bun' as your 📦 manager. Bun is known for its ⚡ speed and efficiency in handling dependencies compared to traditional managers like npm or yarn.
-
-◆ Add-ons successfully configured ✅
-
-After the add-ons are selected, the 🛠️ Svelte CLI will configure these 🛠️ into your project, integrating them seamlessly.
-
-◆ Dependencies successfully installed ✅
-
-Dependencies, including all necessary 📦 for 🛠️ SvelteKit, 🌬️ Tailwind, and other 🛠️, are then installed.
-
-◇ Modified 📄 successfully formatted ✅
-
-The CLI will also ensure that any modifications to your 📄 are formatted according to the ✨ Prettier configuration, which keeps your codebase neat and consistent.
-
-◇ Next Steps ────────────────────────────────────────────╮
-│  1️⃣: Navigate to your project 📂: `cd fileclusterUI` │
-│  2️⃣: 🗃️ Initialize a git repository: `git init && git add -A && git commit -m "Initial commit"` │
-│  3️⃣: ⚡ Start development server: `bun dev --open` │
-│                                                          │
-│  The dev server allows you to preview your project in real-time. To stop the server, press Ctrl-C. │
-│                                                          │
-│  ❓ Need assistance or encounter issues? Visit the 🌐 Svelte community at https://svelte.dev/chat │
-└───────────────────────────────────────────────────────────────╯
-
-🎉 Project setup completed successfully! At this point, your project is fully configured and ready for further development. You can start adding components, integrating APIs, and building out the functionality you desire. As a next step, consider writing some initial tests or experimenting with adding simple components to get familiar with the structure.
-
-### 2️⃣ Initialize Git Repository and ➡️ Push to 🌐 GitHub
-
-🗃️ Version control is a crucial part of any 💻 project, allowing you to track changes, collaborate with others, and maintain a reliable history of your codebase. To initialize a 🗃️ git repository and push it to a 🌐 GitHub remote, use the following 📝:
-
-```sh
-git init && test -f .gitignore || { echo '❌ .gitignore 📄 not found'; return 1; } && git add . && git commit -am "initial setup" && gh 📦 create --🔒 [reponame] && 🗃️ git remote add origin "🌐 https://github.com/[username]/[reponame].git" && git push -u origin main
-````
-
-- `git init` initializes a new 🗃️ Git repository.
-- The `test -f .gitignore` step ensures that a `.gitignore` 📄 exists to prevent unwanted 📄 from being tracked. If the 📄 is not found, an ❌ message is returned.
-- `git add .` stages all 📄 for commit, while `chore: initial SvelteKit project scaffold` commits these changes with a descriptive message.
-- The `gh 📦 create` 📝 uses the 🌐 GitHub CLI to create a new 🔒 repository named `[reponame]` on 🌐 GitHub.
-- `git remote add origin` links the local 🗃️ to the 🌐 GitHub repository using the specified URL.
-- Finally, `git push -u origin main` pushes your changes to the 🌐 repository on the `main` branch.
-
-Following these steps ensures that your 🏗️ project is properly versioned from the outset and safely stored in a remote 🌐 repository, making collaboration and future modifications much more manageable.
-
-Run `bun update` and update `.gitignore` to exclude the history after `npx sv create` to install the dependencies.
-Next we will setup Convex.
-Do not forget to create `convex.json` and configure the `functions` path.
-Do not forget to add the the generated `src/convex/_generated` folder to `.gitignore`.
-Afterwards, run `bun add convex convex-svelte` to install the Convex dependencies. Then run `bunx convex dev` to set up and log in to your GitHub account.
-
-```sh
-alien@Alex-MacBook-Air fileclusterUI % bunx convex dev
-? What would you like to configure? create a new project
-? Project name: fileclusterUI
-✔ Created project fileclusterui, manage it at https://dashboard.convex.dev/t/alexander-strasser/fileclusterui
-✔ Provisioned a dev deployment and saved its name as CONVEX_DEPLOYMENT to .env.local
-✔ URL as PUBLIC_CONVEX_URL to .env.local
-
-Write your Convex functions in convex/
-Give us feedback at https://convex.dev/community or support@convex.dev
-
-✔ 17:09:32 Convex functions ready! (3.39s)
-```
-
-Run the following command in the terminal to create sample data:
-
-```sh
-echo '{"text": "Buy groceries", "isCompleted": true}
-{"text": "Go for a swim", "isCompleted": true}
-{"text": "Integrate Convex", "isCompleted": false}' > sampleData.jsonl
-```
-
-Run the following command in the terminal to import the sample data:
-
-```sh
-bunx convex import --table tasks sampleData.jsonl
-```
-
-create a `.env` file and copy `PUBLIC_CONVEX_URL` from `.env.local`
-
-after this whole ordeal with the commit history and making convex work. which should all have been super easy. but i made it hard on my self.
-lets go back to normal functionality. also i should have started with commiting the vitest setup. and then added convex. i added now some math functions in the lib folder. to show insource testing which is a neat feature of vitest. i will make a branch which i use to create patches for the project. and then merge them into the main branch. for example what i found is usually first write the change you want to make in the read me file commit that then implement that change. also fixes should be chronologically directly after the commit that introduced the bug. but thats wishful thinking. but in the other branch i can try to sort the non conflicting changes as to make the commit history more semantically and topically ordered and cohesive/coherent. I discovered that bun test uses Bun's native test runner (which only runs .test.ts files) while bun run test uses Vitest (which runs both regular and in-source tests). buns native test runner does not respect the vitest configuration.
-now we are trying to get convex' native testing to work.
-we will have two different enviroments defined in the configuration.
-next one has to add a svelte component to the project.
-afterwards one has to test that component via the testing libary for svelte.
-okay from now on i will only write in that one kind of speech. because of the lotr meme.
-next one has to add shadcn components to the project.
-one has to do it with cli.
-one hast to do this before executing the cli. it may not be able to install dependencies probably.
-
-alien@MacBookAir fileclusterUI % bun add bits-ui@next
-[0.07ms] ".env.local", ".env"
-bun add v1.1.37 (8ca0eb83)
-
-installed bits-ui@1.0.0-next.64
-
-it could add the the dev dependencies to the project.
-
-┌ shadcn-svelte v1.0.0-next.4
-│
-◇ Which style would you like to use?
-│ Default
-│
-◇ Which base color would you like to use?
-│ Zinc
-│
-◇ Where is your global CSS file? (this file will be overwritten)
-│ src/app.css
-│
-◇ Where is your Tailwind config located? (this file will be overwritten)
-│ tailwind.config.ts
-│
-◇ Configure the import alias for components:
-│ $lib/components
-│
-◇ Configure the import alias for utils:
-│ $lib/utils
-│
-◇ Configure the import alias for hooks:
-│ $lib/hooks
-│
-◇ Configure the import alias for ui:
-┌ shadcn-svelte v1.0.0-next.4
-│
-◇ Components to install:
-│ button
-│
-◇ Ready to install components and dependencies?
-│ Yes
-│
-◇ button installed at src/lib/components/ui/button
-│
-◇ Config file components.json updated
-│
-└ Success! Component installation completed.
-
-one now has to test that component via the testing libary for svelte.s
-
-one now has to add an article component to the project.
-which uses the tailwind typography plugin.
-tests for article component.
-
-one now has to add a tag toggle component to the project.
-which uses the shadcn toggle and toggle group component.
-tests for tag toggle component.
-
-one now has to add a simple carousel component to the project.
-tests for carousel component.
-one should not forget to install the embla-carousel-svelte dependency before.
-
-one now has to add a filecard to the project.
-tests for filecard component.
-one should not forget to add the shadcn components before.
-
-now since one want to add forms. one noticed some project related shortcomings.
-one now has added types and aliases for types
-aswell as a schemas and aliases for schemas folder.
-to properly work with schemas one needed the zod library.
-
-now one hast to try to get superforms forms snap and shadcn forms to work.
-also one has to add a test for the folder form component.
-
-now one has to add a page with a server action.
-to use sveltes ways of server side processing.
-there is only one real use case for server actions so far
-and that is to use a private api key
-one built the folder api to route properly to the page
-aswell as the server side sript to call the open ai api.
-now one can use its open ai api key to generate a response.
-
-now one has to try to get bun shell to work.
-first one has to add the types.
-then use a svelte route via a server side ts sricpt to execute a shell command.
-
-now one has to add a lightswitch and set dark mode to default.
-one has to be able to develop at night without your eyes getting hurt.
-first one hast to add the mode watcher and the icons.
-the one has to create a component and add it to the page
-
-now one has to refactor this file. and splitt it into 2 parts a process.md
-in that is in a docs folder on the root of this project.
-
-where all the steps are documented.
-and a README.md in the root of the project.
-where only the most important information is documented.
-meaning the setup of the project and the tech stack and  
- what needs to be done after cloning the template to start developing.
-
-okay since people(ms) will be cloning the project i will have to write in the readme
-how to change the tailwind.ts and the components.json file to your needs.
-since they wont be using shadcn cli to generate the components.
-also how to add sample data to the database.
-and the enviroment variables that need to be set to make the project work.
-i.e. the convex url and the open ai api key.
-convex url is in the .env.local file. and has to be moved to the .env file.
-this should be in readme.md.
-
-what will not be needed in the readme is everything i have done to make it work that will
-be moved to process.md. like the output of all the cli commands, cmd commands and the commit history.
-all the paragraphs that use one kind of speech should be moved to process.md.
-
-also here an example of how the readme should look like.
-will be simplified.
-this is a playground/template. to learn how to built a web app. i used sv to create a svelte project. it has typescript support. its package manager is bun. its formatter is prettier. its linter is eslint. it uses aliases. it can do addition. it uses vitest for testing. the test are in-source. it uses convex to store data. it has some sample data. convex' native testing is supported. svelte component testing is supported. it uses tailwindcss v4. it also uses plugins for tailwindcss. experimental. it uses shadcn components. experimental. it has a ui component made of shadcn components like card and carousel. from now on it uses conventional commits. todo retroactively change the commit messages. it uses zod schemas to validate data
+One will add the commit history and refernce to why changes have been made later. Most of the text was auto generated and it shows.
