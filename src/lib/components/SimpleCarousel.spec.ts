@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach, vi } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/svelte';
 import SimpleCarousel from './SimpleCarousel.svelte';
 
@@ -30,16 +30,17 @@ describe('SimpleCarousel component', () => {
 	});
 
 	it('should render with default orientation', () => {
-		const { getByLabelText } = render(SimpleCarousel);
-		const carousel = getByLabelText('Image Carousel');
+		const { getByTestId } = render(SimpleCarousel);
+		const carousel = getByTestId('carousel-root');
 		expect(carousel).toBeTruthy();
+		expect(carousel.getAttribute('aria-label')).toBe('Image Carousel');
 	});
 
 	it('should render all slides', () => {
-		const { getByLabelText } = render(SimpleCarousel);
-		expect(getByLabelText('Slide 1')).toBeTruthy();
-		expect(getByLabelText('Slide 2')).toBeTruthy();
-		expect(getByLabelText('Slide 3')).toBeTruthy();
+		const { getByTestId } = render(SimpleCarousel);
+		expect(getByTestId('carousel-slide-1')).toBeTruthy();
+		expect(getByTestId('carousel-slide-2')).toBeTruthy();
+		expect(getByTestId('carousel-slide-3')).toBeTruthy();
 	});
 
 	it('should change orientation when prop is updated', async () => {
@@ -50,5 +51,25 @@ describe('SimpleCarousel component', () => {
 		await rerender({ orientation: 'vertical' });
 		const carousel = getByLabelText('Image Carousel');
 		expect(carousel.getAttribute('aria-orientation')).toBe('vertical');
+	});
+
+	it('should have correct navigation controls', () => {
+		const { getByTestId } = render(SimpleCarousel);
+
+		const prevButton = getByTestId('carousel-previous');
+		const nextButton = getByTestId('carousel-next');
+		const indicator = getByTestId('carousel-indicator');
+
+		expect(prevButton.getAttribute('aria-label')).toBe('Previous Slide');
+		expect(nextButton.getAttribute('aria-label')).toBe('Next Slide');
+		expect(indicator.getAttribute('aria-label')).toBe('Slide Indicator');
+	});
+
+	it('displays correct slide indicator', () => {
+		const { getByTestId } = render(SimpleCarousel);
+		const indicator = getByTestId('carousel-indicator');
+
+		expect(indicator.getAttribute('aria-label')).toBe('Slide Indicator');
+		expect(indicator.textContent).toContain('0 / 0');
 	});
 });

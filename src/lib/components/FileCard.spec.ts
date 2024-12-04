@@ -1,5 +1,6 @@
 import { describe, it, expect, afterEach, vi, beforeAll } from 'vitest';
 import { render, fireEvent, cleanup } from '@testing-library/svelte';
+import { tick } from 'svelte';
 import FileCard from './FileCard.svelte';
 
 // Add type declaration for the map method
@@ -33,11 +34,18 @@ describe('FileCard', () => {
 			}
 		});
 
-		// Check main structure
+		// Check main structure using data-testid
 		expect(getByTestId('file-card')).toBeTruthy();
 		expect(getByTestId('file-card-header')).toBeTruthy();
 		expect(getByTestId('file-card-content')).toBeTruthy();
 		expect(getByTestId('file-card-footer')).toBeTruthy();
+		expect(getByTestId('card-title')).toBeTruthy();
+		expect(getByTestId('card-description')).toBeTruthy();
+
+		// Check ARIA labels
+		expect(getByTestId('file-card').getAttribute('aria-label')).toBe('File Card');
+		expect(getByTestId('card-title').getAttribute('aria-label')).toBe('Card Title');
+		expect(getByTestId('card-description').getAttribute('aria-label')).toBe('Card Description');
 
 		// Check content
 		expect(getByText('Test Project')).toBeTruthy();
@@ -85,6 +93,46 @@ describe('FileCard', () => {
 		expect(handleCancel).toHaveBeenCalled();
 
 		await fireEvent.click(getByTestId('deploy-button'));
+		expect(handleDeploy).toHaveBeenCalled();
+	});
+
+	// New test case
+	it('renders card header with custom content', () => {
+		const { getByTestId, getByLabelText } = render(FileCard, {
+			props: {
+				cardTitle: 'Custom Title',
+				cardDescription: 'Custom Description',
+				inputLabel: 'Custom Label'
+			}
+		});
+
+		const header = getByTestId('file-card-header');
+		const label = getByLabelText('Custom Label');
+
+		expect(header.textContent).toContain('Custom Title');
+		expect(header.textContent).toContain('Custom Description');
+		expect(label).toBeTruthy();
+	});
+
+	it('handles form submission', async () => {
+		const handleDeploy = vi.fn();
+		const { getByTestId } = render(FileCard, {
+			props: {
+				onDeploy: handleDeploy,
+				cardTitle: 'Test Project',
+				cardDescription: 'Test Description',
+				inputLabel: 'Project Name',
+				inputPlaceholder: 'Enter project name'
+			}
+		});
+
+		const input = getByTestId('name-input') as HTMLInputElement;
+
+		await fireEvent.input(input, { target: { value: 'Test Project' } });
+		await tick();
+		await fireEvent.click(getByTestId('deploy-button'));
+		await tick();
+
 		expect(handleDeploy).toHaveBeenCalled();
 	});
 });

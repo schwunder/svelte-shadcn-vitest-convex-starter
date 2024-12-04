@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeAll, vi } from 'vitest';
-import { render, fireEvent } from '@testing-library/svelte';
+import { describe, it, expect, vi, afterEach, beforeAll } from 'vitest';
+import { render, fireEvent, cleanup } from '@testing-library/svelte';
 import LightSwitch from './LightSwitch.svelte';
 import { tick } from 'svelte';
 
@@ -11,9 +11,8 @@ beforeAll(() => {
 			matches: false,
 			media: query,
 			onchange: null,
-			addListener: vi.fn(), // Deprecated
-
-			removeListener: vi.fn(), // Deprecated
+			addListener: vi.fn(),
+			removeListener: vi.fn(),
 			addEventListener: vi.fn(),
 			removeEventListener: vi.fn(),
 			dispatchEvent: vi.fn()
@@ -52,4 +51,34 @@ describe('LightSwitch', () => {
 		await fireEvent.click(button!);
 		await tick();
 	});
+
+	// New test case
+	it('has correct button styles and attributes', () => {
+		const { container } = render(LightSwitch);
+		const button = container.querySelector('[data-testid="theme-toggle-button"]');
+
+		// Check for shadcn-svelte button classes
+		expect(button?.classList.contains('border-input')).toBe(true);
+		expect(button?.classList.contains('bg-background')).toBe(true);
+		expect(button?.classList.contains('hover:bg-accent')).toBe(true);
+		expect(button?.classList.contains('hover:text-accent-foreground')).toBe(true);
+		expect(button?.getAttribute('aria-label')).toBe('Toggle theme');
+	});
+
+	it('renders both sun and moon icons', () => {
+		const { container } = render(LightSwitch);
+
+		const sunIcon = container.querySelector('[data-testid="theme-toggle-sun-icon"]');
+		const moonIcon = container.querySelector('[data-testid="theme-toggle-moon-icon"]');
+
+		expect(sunIcon).toBeTruthy();
+		expect(moonIcon).toBeTruthy();
+		expect(sunIcon?.getAttribute('aria-label')).toBe('Light mode');
+		expect(moonIcon?.getAttribute('aria-label')).toBe('Dark mode');
+	});
+});
+
+afterEach(() => {
+	cleanup();
+	vi.clearAllMocks();
 });
