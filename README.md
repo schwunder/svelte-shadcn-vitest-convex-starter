@@ -234,3 +234,12 @@ now one has to add a lightswitch and set dark mode to default.
 one has to be able to develop at night without your eyes getting hurt.
 first one hast to add the mode watcher and the icons.
 the one has to create a component and add it to the page
+
+now one has to refactor this file. and splitt it into 2 parts a process.md
+in that is in a docs folder on the root of this project.
+
+where all the steps are documented.
+and a README.md in the root of the project.
+where only the most important information is documented.
+meaning the setup of the project and the tech stack and  
+ what needs to be done after cloning the template to start developing.
