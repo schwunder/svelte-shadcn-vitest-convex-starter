@@ -243,3 +243,12 @@ and a README.md in the root of the project.
 where only the most important information is documented.
 meaning the setup of the project and the tech stack and  
  what needs to be done after cloning the template to start developing.
+
+okay since people(ms) will be cloning the project i will have to write in the readme
+how to change the tailwind.ts and the components.json file to your needs.
+since they wont be using shadcn cli to generate the components.
+also how to add sample data to the database.
+and the enviroment variables that need to be set to make the project work.
+i.e. the convex url and the open ai api key.
+convex url is in the .env.local file. and has to be moved to the .env file.
+this should be in readme.md.
