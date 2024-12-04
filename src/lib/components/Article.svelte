@@ -4,6 +4,6 @@
 </script>
 
 <article class="prose" aria-label="Article" data-testid="article">
-	<h1 aria-label="Title">{title}</h1>
-	<p aria-label="Text">{text}</p>
+	<h1 aria-label="Title" data-testid="article-title">{title}</h1>
+	<p aria-label="Text" data-testid="article-text">{text}</p>
 </article>

@@ -2,13 +2,10 @@
 	let email = '';
 </script>
 
-<form>
-	<input
-		type="email"
-		bind:value={email}
-		class="form-input"
-		placeholder="Email"
-		aria-label="Form Submit Input"
-	/>
-	<button type="submit" class="form-button" aria-label="Form Submit Button">Submit</button>
+<form data-testid="form" aria-label="Form">
+	<div>
+		<label for="email" data-testid="email-label" aria-label="Email Label">Email</label>
+		<input type="email" id="email" data-testid="email-input" aria-label="Email Input" required />
+	</div>
+	<button type="submit" data-testid="submit-button" aria-label="Submit Form"> Submit </button>
 </form>

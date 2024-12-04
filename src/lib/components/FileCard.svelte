@@ -36,34 +36,46 @@
 	}
 </script>
 
-<Card.Root data-testid="file-card">
-	<Card.Header data-testid="file-card-header">
-		<Card.Title>{cardTitle}</Card.Title>
-		<Card.Description>{cardDescription}</Card.Description>
+<Card.Root data-testid="file-card" aria-label="File Card">
+	<Card.Header data-testid="file-card-header" aria-label="Card Header">
+		<Card.Title data-testid="card-title" aria-label="Card Title">{cardTitle}</Card.Title>
+		<Card.Description data-testid="card-description" aria-label="Card Description"
+			>{cardDescription}</Card.Description
+		>
 	</Card.Header>
 
-	<Card.Content data-testid="file-card-content">
-		<form>
+	<Card.Content data-testid="file-card-content" aria-label="Card Content">
+		<form data-testid="file-form" aria-label="File Form">
 			<div>
 				<div>
-					<Label for="name">{inputLabel}</Label>
+					<Label for="name" data-testid="name-label" aria-label="Name Label">{inputLabel}</Label>
 					<Input
 						id="name"
 						bind:value={inputValue}
 						placeholder={inputPlaceholder}
 						data-testid="name-input"
+						aria-label="Name Input"
 					/>
 				</div>
 				<div>
-					<Checkbox bind:checked id="framework" data-testid="framework-checkbox" />
-					<Label for="framework">{checkboxLabel}</Label>
+					<Checkbox
+						bind:checked
+						id="framework"
+						data-testid="framework-checkbox"
+						aria-label="Framework Selection"
+					/>
+					<Label for="framework" data-testid="framework-label" aria-label="Framework Label"
+						>{checkboxLabel}</Label
+					>
 				</div>
 			</div>
 		</form>
 	</Card.Content>
 
-	<Card.Footer data-testid="file-card-footer">
-		<Button variant="outline" onclick={handleCancel} data-testid="cancel-button">Cancel</Button>
-		<Button onclick={handleDeploy} data-testid="deploy-button">Deploy</Button>
+	<Card.Footer data-testid="file-card-footer" aria-label="Card Footer">
+		<Button variant="outline" onclick={handleCancel} data-testid="cancel-button" aria-label="Cancel"
+			>Cancel</Button
+		>
+		<Button onclick={handleDeploy} data-testid="deploy-button" aria-label="Deploy">Deploy</Button>
 	</Card.Footer>
 </Card.Root>

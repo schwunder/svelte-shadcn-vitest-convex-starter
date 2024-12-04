@@ -30,18 +30,24 @@
 	const { form: formData, enhance, errors, tainted, isTainted } = formInstance;
 </script>
 
-<form method="POST" use:enhance data-testid="folder-form">
+<form method="POST" use:enhance data-testid="folder-form" aria-label="Folder Form">
 	<Form.Field form={formInstance} name="folderPath" data-testid="folder-path-field">
 		<Form.Control>
 			{#snippet children({ props })}
-				<Form.Label data-testid="folder-path-label">Folder Path</Form.Label>
+				<Form.Label data-testid="folder-path-label" aria-label="Folder Path Label"
+					>Folder Path</Form.Label
+				>
 				<Input
 					{...props}
 					bind:value={$formData.folderPath}
 					placeholder="Enter folder path"
 					data-testid="folder-path-input"
+					aria-label="Folder Path Input"
 				/>
-				<Form.Description data-testid="folder-path-description">
+				<Form.Description
+					data-testid="folder-path-description"
+					aria-label="Folder Path Description"
+				>
 					Enter a folder path between 2 and 50 characters.
 				</Form.Description>
 				<Form.FieldErrors data-testid="folder-path-errors" />
@@ -49,5 +55,10 @@
 		</Form.Control>
 	</Form.Field>
 
-	<Button type="submit" disabled={!isTainted($tainted)} data-testid="submit-button">Submit</Button>
+	<Button
+		type="submit"
+		disabled={!isTainted($tainted)}
+		data-testid="submit-button"
+		aria-label="Submit Folder">Submit</Button
+	>
 </form>

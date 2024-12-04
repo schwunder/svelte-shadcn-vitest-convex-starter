@@ -13,7 +13,19 @@
 	aria-label="Toggle theme"
 	data-testid="theme-toggle-button"
 >
-	<Sun data-testid="theme-toggle-sun-icon" aria-hidden="true" aria-label="Light mode" />
-	<Moon data-testid="theme-toggle-moon-icon" aria-hidden="true" aria-label="Dark mode" />
-	<span class="sr-only" data-testid="theme-toggle-text">Toggle theme</span>
+	<Sun
+		data-testid="theme-toggle-sun-icon"
+		aria-hidden="true"
+		aria-label="Light mode"
+		data-mode="light"
+	/>
+	<Moon
+		data-testid="theme-toggle-moon-icon"
+		aria-hidden="true"
+		aria-label="Dark mode"
+		data-mode="dark"
+	/>
+	<span class="sr-only" data-testid="theme-toggle-text" aria-label="Theme Toggle Text"
+		>Toggle theme</span
+	>
 </Button>
