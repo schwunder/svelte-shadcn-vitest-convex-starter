@@ -1,6 +1,5 @@
 import { describe, it, expect, afterEach, vi, beforeAll } from 'vitest';
 import { render, fireEvent, cleanup } from '@testing-library/svelte';
-import { tick } from 'svelte';
 import FileCard from './FileCard.svelte';
 
 // Add type declaration for the map method
@@ -114,24 +113,19 @@ describe('FileCard', () => {
 		expect(label).toBeTruthy();
 	});
 
-	it('handles form submission', async () => {
+	it('handles deploy button click with input value', async () => {
 		const handleDeploy = vi.fn();
 		const { getByTestId } = render(FileCard, {
 			props: {
 				onDeploy: handleDeploy,
-				cardTitle: 'Test Project',
-				cardDescription: 'Test Description',
 				inputLabel: 'Project Name',
 				inputPlaceholder: 'Enter project name'
 			}
 		});
 
 		const input = getByTestId('name-input') as HTMLInputElement;
-
 		await fireEvent.input(input, { target: { value: 'Test Project' } });
-		await tick();
 		await fireEvent.click(getByTestId('deploy-button'));
-		await tick();
 
 		expect(handleDeploy).toHaveBeenCalled();
 	});

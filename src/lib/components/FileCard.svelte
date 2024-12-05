@@ -45,31 +45,23 @@
 	</Card.Header>
 
 	<Card.Content data-testid="file-card-content" aria-label="Card Content">
-		<form data-testid="file-form" aria-label="File Form">
-			<div>
-				<div>
-					<Label for="name" data-testid="name-label" aria-label="Name Label">{inputLabel}</Label>
-					<Input
-						id="name"
-						bind:value={inputValue}
-						placeholder={inputPlaceholder}
-						data-testid="name-input"
-						aria-label="Name Input"
-					/>
-				</div>
-				<div>
-					<Checkbox
-						bind:checked
-						id="framework"
-						data-testid="framework-checkbox"
-						aria-label="Framework Selection"
-					/>
-					<Label for="framework" data-testid="framework-label" aria-label="Framework Label"
-						>{checkboxLabel}</Label
-					>
-				</div>
-			</div>
-		</form>
+		<Label for="name" data-testid="name-label" aria-label="Name Label">{inputLabel}</Label>
+		<Input
+			id="name"
+			bind:value={inputValue}
+			placeholder={inputPlaceholder}
+			data-testid="name-input"
+			aria-label="Name Input"
+		/>
+		<Checkbox
+			bind:checked
+			id="framework"
+			data-testid="framework-checkbox"
+			aria-label="Framework Selection"
+		/>
+		<Label for="framework" data-testid="framework-label" aria-label="Framework Label"
+			>{checkboxLabel}</Label
+		>
 	</Card.Content>
 
 	<Card.Footer data-testid="file-card-footer" aria-label="Card Footer">

@@ -21,7 +21,20 @@
 	<Article title="Hello" text="This is a test" />
 	<TagToggle />
 	<SimpleCarousel orientation="vertical" />
-	<FileCard />
+	<FileCard
+		cardTitle="Deploy Your Project"
+		cardDescription="Configure your deployment settings"
+		inputLabel="Project Name"
+		inputPlaceholder="Enter your project name"
+		checkboxLabel="Enable Framework Detection"
+		checked={false}
+		onCancel={() => {
+			console.log('Cancelled deployment');
+		}}
+		onDeploy={() => {
+			console.log('Starting deployment');
+		}}
+	/>
 	<FolderForm form={data.form} />
 	<p>OpenAI says: {data.openAIData}</p>
 	<p>Bun shell says: {data.shellData}</p>
