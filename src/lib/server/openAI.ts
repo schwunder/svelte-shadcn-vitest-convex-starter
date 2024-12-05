@@ -32,7 +32,81 @@ export const callCompletionsApi = async () => {
 		return response.choices[0].message.content;
 	} catch (error: unknown) {
 		const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-		console.error('OpenAI API Error:', error);
 		throw new Error(errorMessage);
 	}
 };
+
+// Tests
+if (import.meta.vitest) {
+	const { describe, it, expect, vi } = import.meta.vitest;
+
+	const mockResponses = {
+		success: {
+			choices: [
+				{
+					message: {
+						role: 'assistant',
+						content: 'This is a mocked response'
+					}
+				}
+			]
+		},
+		error: {
+			choices: [
+				{
+					message: {
+						role: 'assistant',
+						content: null
+					}
+				}
+			]
+		}
+	};
+
+	describe('OpenAI API', () => {
+		beforeEach(async () => {
+			vi.resetModules();
+			vi.clearAllMocks();
+			vi.unstubAllGlobals();
+		});
+
+		it('should return content from response', async () => {
+			vi.doMock('openai', () => ({
+				default: class MockOpenAI {
+					constructor() {
+						return {
+							chat: {
+								completions: {
+									create: vi.fn().mockResolvedValue(mockResponses.success)
+								}
+							}
+						};
+					}
+				}
+			}));
+
+			const { callCompletionsApi } = await import('./openAI');
+			const result = await callCompletionsApi();
+			expect(result).toBe('This is a mocked response');
+		});
+
+		it('should throw when no content in response', async () => {
+			vi.doMock('openai', () => ({
+				default: class MockOpenAI {
+					constructor() {
+						return {
+							chat: {
+								completions: {
+									create: vi.fn().mockResolvedValue(mockResponses.error)
+								}
+							}
+						};
+					}
+				}
+			}));
+
+			const { callCompletionsApi } = await import('./openAI');
+			await expect(callCompletionsApi()).rejects.toThrow('No content in OpenAI response');
+		});
+	});
+}

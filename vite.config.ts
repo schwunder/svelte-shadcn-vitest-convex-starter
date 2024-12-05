@@ -5,6 +5,7 @@ export default defineConfig({
 	plugins: [sveltekit()],
 
 	test: {
+		globals: true,
 		includeSource: ['src/**/*.{js,ts}'],
 		environmentMatchGlobs: [
 			// all tests in convex/ will run in edge-runtime
