@@ -4,6 +4,7 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import { LightSwitch, Counter } from '$components';
 	import '../app.css';
+	import { Toaster } from 'svelte-sonner';
 
 	const { children } = $props();
 	setupConvex(PUBLIC_CONVEX_URL);
@@ -21,4 +22,11 @@
 </header>
 
 <ModeWatcher defaultMode="dark" />
+<Toaster
+	richColors={true}
+	closeButton={true}
+	theme="light"
+	position="top-right"
+	data-testid="toaster"
+/>
 {@render children()}

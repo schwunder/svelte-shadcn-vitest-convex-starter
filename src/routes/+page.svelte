@@ -4,7 +4,6 @@
 	import { Article, TagToggle, SimpleCarousel, FileCard, StringForm } from '$components';
 	import { add } from '$utilities';
 	import type { PageData } from './$types';
-	import { Toaster } from 'svelte-sonner';
 
 	export let data: PageData;
 	const query = useQuery(api.tasks.get, {});
@@ -58,11 +57,3 @@
 
 	<SimpleCarousel orientation="vertical" />
 {/if}
-
-<Toaster
-	richColors={true}
-	closeButton={true}
-	theme="light"
-	position="top-right"
-	data-testid="toaster"
-/>
