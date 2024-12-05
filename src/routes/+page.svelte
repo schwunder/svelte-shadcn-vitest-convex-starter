@@ -29,7 +29,17 @@
 		title={`Hello ${result}`}
 		text={`Open AI says ${data.openAIData} and Bun shell says ${data.shellData}`}
 	/>
-	<StringForm form={data.form} />
+	<StringForm
+		form={data.form}
+		config={{
+			label: 'Custom Label',
+			placeholder: 'Custom Placeholder',
+			minLength: 2,
+			maxLength: 50,
+			successMessage: 'Custom success message',
+			errorMessage: 'Custom error message'
+		}}
+	/>
 	<TagToggle tags={['Frontend', 'Backend', 'Full-Stack']} selectedTags={['Frontend']} />
 	<FileCard
 		cardTitle="Deploy Your Project"

@@ -2,7 +2,7 @@
 	import * as Form from '$ui/form';
 	import { Input } from '$ui/input';
 	import { Button } from '$ui/button';
-	import { stringInputSchema } from '$lib/schemas';
+	import { stringInputSchema, type StringInputConfig } from '$lib/schemas';
 	import type { SuperValidated, Infer } from 'sveltekit-superforms';
 	import { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
@@ -10,18 +10,20 @@
 
 	type Props = {
 		form: SuperValidated<Infer<typeof stringInputSchema>>;
+		config?: StringInputConfig;
 	};
 
 	export let form: Props['form'];
+	export let config: StringInputConfig = {};
 
 	const formInstance = superForm(form, {
 		validators: zodClient(stringInputSchema),
 		taintedMessage: null,
 		onUpdated: ({ form: f }) => {
 			if (f.valid) {
-				toast.success(`Folder "${f.data.stringInput}" added successfully`);
+				toast.success(config.successMessage ?? `Folder "${f.data.stringInput}" added successfully`);
 			} else {
-				toast.error('Please fix the errors in the form.');
+				toast.error(config.errorMessage ?? 'Please fix the errors in the form.');
 			}
 		}
 	});
@@ -33,13 +35,13 @@
 	<Form.Field form={formInstance} name="stringInput" data-testid="string-input-field">
 		<Form.Control>
 			{#snippet children({ props })}
-				<Form.Label data-testid="string-input-label" aria-label="String Input Label"
-					>String Input</Form.Label
-				>
+				<Form.Label data-testid="string-input-label" aria-label="String Input Label">
+					{config.label ?? 'String Input'}
+				</Form.Label>
 				<Input
 					{...props}
 					bind:value={$formData.stringInput}
-					placeholder="Enter string input"
+					placeholder={config.placeholder ?? 'Enter string input'}
 					data-testid="string-input"
 					aria-label="String Input"
 				/>

@@ -2,10 +2,17 @@ import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { stringInputSchema } from '$schemas';
+import { createStringInputSchema,  type StringInputConfig } from '$schemas';
 
-// Define schema at module level for caching
-const schema = zod(stringInputSchema);
+// Define config at module level
+const formConfig: StringInputConfig = {
+	minLength: 2,
+	maxLength: 50,
+	label: 'Custom Input',
+	placeholder: 'Enter your text'
+};
+
+const schema = zod(createStringInputSchema(formConfig));
 
 export const load = (async () => {
 	const form = await superValidate(schema);
