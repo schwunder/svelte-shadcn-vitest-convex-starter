@@ -16,11 +16,21 @@
 {:else if query.error}
 	failed to load: {query.error.toString()}
 {:else}
-	<p>Result: {result}</p>
-
-	<Article title="Hello" text="This is a test" />
+	<ul>
+		{#each query.data as task}
+			<li>
+				{task.isCompleted ? '☑' : '☐'}
+				<span>{task.text}</span>
+				<span>assigned by {task.assigner}</span>
+			</li>
+		{/each}
+	</ul>
+	<Article
+		title={`Hello ${result}`}
+		text={`Open AI says ${data.openAIData} and Bun shell says ${data.shellData}`}
+	/>
+	<FolderForm form={data.form} />
 	<TagToggle tags={['Frontend', 'Backend', 'Full-Stack']} selectedTags={['Frontend']} />
-	<SimpleCarousel orientation="vertical" />
 	<FileCard
 		cardTitle="Deploy Your Project"
 		cardDescription="Configure your deployment settings"
@@ -35,18 +45,8 @@
 			console.log('Starting deployment');
 		}}
 	/>
-	<FolderForm form={data.form} />
-	<p>OpenAI says: {data.openAIData}</p>
-	<p>Bun shell says: {data.shellData}</p>
-	<ul>
-		{#each query.data as task}
-			<li>
-				{task.isCompleted ? '☑' : '☐'}
-				<span>{task.text}</span>
-				<span>assigned by {task.assigner}</span>
-			</li>
-		{/each}
-	</ul>
+
+	<SimpleCarousel orientation="vertical" />
 {/if}
 
 <Toaster
