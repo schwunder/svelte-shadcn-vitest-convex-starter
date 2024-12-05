@@ -34,4 +34,4 @@ vite.config.ts.timestamp-*
 src/convex/_generated/
 
 # Personal Docs
-docs/process.md
+/docs/process.md
