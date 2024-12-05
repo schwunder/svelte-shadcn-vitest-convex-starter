@@ -16,9 +16,11 @@ Object.defineProperty(NodeList.prototype, 'map', {
 
 describe('TagToggle', () => {
 	it('displays initial tags', async () => {
+		const tags = ['Frontend', 'Backend', 'Full-Stack'];
 		const { container } = render(TagToggle, {
 			props: {
-				selectedTags: ['tag1', 'tag2', 'tag3']
+				tags,
+				selectedTags: ['Frontend']
 			}
 		});
 
@@ -30,12 +32,23 @@ describe('TagToggle', () => {
 		expect(group?.getAttribute('aria-label')).toBe('Tags');
 
 		// Verify items using data-testid
-		const tags = ['tag1', 'tag2', 'tag3'];
 		tags.forEach((tag) => {
 			const item = container.querySelector(`[data-testid="tag-toggle-${tag}"]`);
 			expect(item).toBeTruthy();
 			expect(item?.textContent).toBe(tag);
 			expect(item?.getAttribute('aria-label')).toBe(`Toggle ${tag}`);
+		});
+	});
+
+	it('uses default tags when none provided', async () => {
+		const { container } = render(TagToggle);
+
+		await tick();
+
+		const defaultTags = ['tag1', 'tag2', 'tag3'];
+		defaultTags.forEach((tag) => {
+			const item = container.querySelector(`[data-testid="tag-toggle-${tag}"]`);
+			expect(item).toBeTruthy();
 		});
 	});
 });

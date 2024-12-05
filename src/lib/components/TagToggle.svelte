@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { ToggleGroup, ToggleGroupItem } from '$ui/toggle-group';
 
-	const sampleTags = ['tag1', 'tag2', 'tag3'];
-	export let selectedTags: string[] = [];
+	let { tags = ['tag1', 'tag2', 'tag3'], selectedTags = [] } = $props<{
+		tags?: string[];
+		selectedTags?: string[];
+	}>();
 </script>
 
 <ToggleGroup
@@ -11,7 +13,7 @@
 	aria-label="Tags"
 	data-testid="tag-toggle-group"
 >
-	{#each sampleTags as tag}
+	{#each tags as tag}
 		<ToggleGroupItem value={tag} aria-label={`Toggle ${tag}`} data-testid={`tag-toggle-${tag}`}>
 			{tag}
 		</ToggleGroupItem>

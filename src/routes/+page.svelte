@@ -19,7 +19,7 @@
 	<p>Result: {result}</p>
 	<Counter />
 	<Article title="Hello" text="This is a test" />
-	<TagToggle />
+	<TagToggle tags={['Frontend', 'Backend', 'Full-Stack']} selectedTags={['Frontend']} />
 	<SimpleCarousel orientation="vertical" />
 	<FileCard
 		cardTitle="Deploy Your Project"
