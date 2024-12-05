@@ -2,7 +2,7 @@
 	import { PUBLIC_CONVEX_URL } from '$env/static/public';
 	import { setupConvex } from 'convex-svelte';
 	import { ModeWatcher } from 'mode-watcher';
-	import LightSwitch from '$components/LightSwitch.svelte';
+	import { LightSwitch, Counter } from '$components';
 	import '../app.css';
 
 	const { children } = $props();
@@ -17,6 +17,7 @@
 
 <header>
 	<LightSwitch />
+	<Counter />
 </header>
 
 <ModeWatcher defaultMode="dark" />

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { useQuery } from 'convex-svelte';
 	import { api } from '$convex/_generated/api';
-	import { Counter, Article, TagToggle, SimpleCarousel, FileCard, FolderForm } from '$components';
+	import { Article, TagToggle, SimpleCarousel, FileCard, FolderForm } from '$components';
 	import { add } from '$utilities';
 	import type { PageData } from './$types';
 	import { Toaster } from 'svelte-sonner';
@@ -17,7 +17,7 @@
 	failed to load: {query.error.toString()}
 {:else}
 	<p>Result: {result}</p>
-	<Counter />
+
 	<Article title="Hello" text="This is a test" />
 	<TagToggle tags={['Frontend', 'Backend', 'Full-Stack']} selectedTags={['Frontend']} />
 	<SimpleCarousel orientation="vertical" />
