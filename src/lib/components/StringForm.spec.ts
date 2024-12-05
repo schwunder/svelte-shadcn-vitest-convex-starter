@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeAll, afterEach } from 'vitest';
 import { render, fireEvent, cleanup } from '@testing-library/svelte';
-import FolderForm from './FolderForm.svelte';
+import FolderForm from './StringForm.svelte';
 import { superValidate } from 'sveltekit-superforms';
-import { folderSchema } from '$schemas/folder';
+import { stringInputSchema } from '$schemas';
 import { zod } from 'sveltekit-superforms/adapters';
 
 // Mock SvelteKit's form handling
@@ -40,7 +40,7 @@ describe('FolderForm', () => {
 	}));
 
 	async function setupForm() {
-		const form = await superValidate(zod(folderSchema));
+		const form = await superValidate(zod(stringInputSchema));
 		return render(FolderForm, {
 			props: { form }
 		});
@@ -49,59 +49,59 @@ describe('FolderForm', () => {
 	it('renders form elements correctly', async () => {
 		const { getByTestId } = await setupForm();
 
-		expect(getByTestId('folder-path-input')).toBeTruthy();
-		expect(getByTestId('folder-path-description')).toBeTruthy();
+		expect(getByTestId('string-input')).toBeTruthy();
+		expect(getByTestId('string-input-description')).toBeTruthy();
 		expect(getByTestId('submit-button')).toBeTruthy();
-		expect(getByTestId('folder-path-label')).toBeTruthy();
+		expect(getByTestId('string-input-label')).toBeTruthy();
 	});
 
 	it('updates input value correctly', async () => {
 		const { getByTestId } = await setupForm();
-		const input = getByTestId('folder-path-input') as HTMLInputElement;
+		const input = getByTestId('string-input') as HTMLInputElement;
 
-		await fireEvent.input(input, { target: { value: 'test-folder' } });
-		expect(input.value).toBe('test-folder');
+		await fireEvent.input(input, { target: { value: 'test-string' } });
+		expect(input.value).toBe('test-string');
 	});
 
 	it('enables submit button when form is tainted', async () => {
 		const { getByTestId } = await setupForm();
-		const input = getByTestId('folder-path-input') as HTMLInputElement;
+		const input = getByTestId('string-input') as HTMLInputElement;
 		const submitButton = getByTestId('submit-button') as HTMLButtonElement;
 
 		// Initially button should be disabled
 		expect(submitButton.disabled).toBe(true);
 
 		// After input, button should be enabled
-		await fireEvent.input(input, { target: { value: 'test-folder' } });
+		await fireEvent.input(input, { target: { value: 'test-string' } });
 		expect(submitButton.disabled).toBe(false);
 	});
 
 	it('has correct ARIA labels', async () => {
 		const { getByTestId } = await setupForm();
 
-		expect(getByTestId('folder-form').getAttribute('aria-label')).toBe('Folder Form');
-		expect(getByTestId('folder-path-input').getAttribute('aria-label')).toBe('Folder Path Input');
-		expect(getByTestId('folder-path-label').getAttribute('aria-label')).toBe('Folder Path Label');
-		expect(getByTestId('folder-path-description').getAttribute('aria-label')).toBe(
-			'Folder Path Description'
+		expect(getByTestId('string-input-form').getAttribute('aria-label')).toBe('String Input Form');
+		expect(getByTestId('string-input').getAttribute('aria-label')).toBe('String Input');
+		expect(getByTestId('string-input-label').getAttribute('aria-label')).toBe('String Input Label');
+		expect(getByTestId('string-input-description').getAttribute('aria-label')).toBe(
+			'String Input Description'
 		);
 	});
 
 	it('displays description text correctly', async () => {
 		const { getByTestId } = await setupForm();
-		const description = getByTestId('folder-path-description');
+		const description = getByTestId('string-input-description');
 
-		expect(description.textContent).toBe('Enter a folder path between 2 and 50 characters.');
+		expect(description.textContent).toBe('Enter a string input between 2 and 50 characters.');
 	});
 
 	it('handles form reset', async () => {
 		const { getByTestId } = await setupForm();
-		const input = getByTestId('folder-path-input') as HTMLInputElement;
-		const form = getByTestId('folder-form');
+		const input = getByTestId('string-input') as HTMLInputElement;
+		const form = getByTestId('string-input-form');
 
 		// Set initial value
-		await fireEvent.input(input, { target: { value: 'test-folder' } });
-		expect(input.value).toBe('test-folder');
+		await fireEvent.input(input, { target: { value: 'test-string' } });
+		expect(input.value).toBe('test-string');
 
 		// Reset the form
 		await fireEvent.reset(form);

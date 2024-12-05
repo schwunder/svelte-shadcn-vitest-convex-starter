@@ -2,10 +2,10 @@ import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { folderSchema } from '$schemas';
+import { stringInputSchema } from '$schemas';
 
 // Define schema at module level for caching
-const schema = zod(folderSchema);
+const schema = zod(stringInputSchema);
 
 export const load = (async () => {
 	const form = await superValidate(schema);

@@ -22,7 +22,7 @@
 		"test:components:filecard": "vitest src/lib/components/FileCard.spec.ts",
 		"test:components:form": "vitest src/lib/components/Form.spec.ts",
 		"test:components:lightswitch": "vitest src/lib/components/LightSwitch.spec.ts",
-		"test:components:folderform": "vitest src/lib/components/FolderForm.spec.ts",
+		"test:components:stringform": "vitest src/lib/components/StringForm.spec.ts",
 		"test:server": "vitest src/lib/server/"
 	},
 	"devDependencies": {

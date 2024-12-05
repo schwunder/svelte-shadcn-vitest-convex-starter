@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { useQuery } from 'convex-svelte';
 	import { api } from '$convex/_generated/api';
-	import { Article, TagToggle, SimpleCarousel, FileCard, FolderForm } from '$components';
+	import { Article, TagToggle, SimpleCarousel, FileCard, StringForm } from '$components';
 	import { add } from '$utilities';
 	import type { PageData } from './$types';
 	import { Toaster } from 'svelte-sonner';
@@ -29,7 +29,7 @@
 		title={`Hello ${result}`}
 		text={`Open AI says ${data.openAIData} and Bun shell says ${data.shellData}`}
 	/>
-	<FolderForm form={data.form} />
+	<StringForm form={data.form} />
 	<TagToggle tags={['Frontend', 'Backend', 'Full-Stack']} selectedTags={['Frontend']} />
 	<FileCard
 		cardTitle="Deploy Your Project"
