@@ -30,3 +30,7 @@
 	data-testid="toaster"
 />
 {@render children()}
+
+<footer>
+	<p>© {new Date().getFullYear()} Your Company. All rights reserved.</p>
+</footer>
