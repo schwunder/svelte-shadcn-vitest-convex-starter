@@ -55,5 +55,50 @@
 		}}
 	/>
 
-	<SimpleCarousel orientation="vertical" />
+	<SimpleCarousel
+		orientation="horizontal"
+		loop={false}
+		align="start"
+		skipSnaps={true}
+		dragFree={true}
+		containScroll="trimSnaps"
+		dragThreshold={10}
+		startIndex={1}
+		spacing="4"
+		slideSpacing="2"
+		buttonOffset="8"
+		aspectRatio="video"
+		direction="ltr"
+		inViewThreshold={0.5}
+		breakpoints={{
+			'(max-width: 768px)': {
+				dragFree: true,
+				containScroll: 'keepSnaps'
+			}
+		}}
+		slides={[
+			{
+				type: 'image',
+				src: 'https://picsum.photos/1200/675', // 16:9 ratio image
+				alt: 'Random landscape image'
+			},
+			{
+				type: 'text',
+				title: 'Mobile-First Design',
+				content: 'Responsive layout with touch-friendly navigation and smooth scrolling.'
+			},
+			{
+				type: 'article',
+				title: 'Feature Overview',
+				content:
+					'This carousel demonstrates advanced features including drag-free scrolling, responsive breakpoints, and mixed content types.',
+				author: 'Design Team'
+			},
+			{
+				type: 'image',
+				src: 'https://picsum.photos/1200/675?random=2',
+				alt: 'Another random landscape'
+			}
+		]}
+	/>
 {/if}
