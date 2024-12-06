@@ -10,8 +10,9 @@ export default defineConfig({
 		environmentMatchGlobs: [
 			// all tests in convex/ will run in edge-runtime
 			['convex/**', 'edge-runtime'],
-			// Make this pattern more specific to match your component tests
+			// Component tests and layout tests use jsdom
 			['src/lib/components/**/*.{spec,test}.{js,ts}', 'jsdom'],
+			['src/routes/**/*.{spec,test}.{js,ts}', 'jsdom'],
 			// all other tests use node
 			['**', 'node']
 		],
