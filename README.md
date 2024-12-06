@@ -113,3 +113,30 @@ bun x shadcn-svelte@next add
 ```
 
 For example, you can add a card component to display grouped content, such as product details or user profiles.
+
+### Automated Setup Script (Optional) 🚀
+
+This script automates the setup of your development environment.
+
+**What You'll Need to Do**:
+
+- If `src/app.css` isn't writable, run the script with `sudo`.
+- When prompted, log in to Convex by following the on-screen instructions.
+- Copy the `@layer base { ... }` snippet from the ShadCN theming page when asked.
+
+**How to Run**:
+
+1. Ensure you are in the project's root directory.
+2. Make the script executable:
+
+   ```bash
+   chmod +x setup.sh
+   ```
+
+3. Execute the script:
+
+   ```bash
+   ./setup.sh
+   ```
+
+4. Follow the prompts and the script will handle the rest.
