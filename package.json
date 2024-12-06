@@ -13,7 +13,7 @@
 		"lint": "prettier --check . && eslint .",
 		"convex": "bunx convex dev",
 		"test": "vitest",
-		"test:src": "vitest src/ --exclude 'src/convex/**' --exclude 'src/lib/components/**' --exclude 'src/routes/layout.spec.ts'",
+		"test:src": "vitest src/ --exclude 'src/convex/**' --exclude 'src/lib/components/**' --exclude 'src/routes/layout.spec.ts' --exclude 'src/routes/page.spec.ts'",
 		"test:convex": "vitest convex/",
 		"test:components": "vitest src/lib/components/",
 		"test:components:counter": "vitest src/lib/components/Counter.spec.ts",
@@ -24,6 +24,7 @@
 		"test:components:switch": "vitest src/lib/components/LightSwitch.spec.ts",
 		"test:components:form": "vitest src/lib/components/StringForm.spec.ts",
 		"test:layout": "vitest src/routes/layout.spec.ts",
+		"test:page": "vitest src/routes/page.spec.ts",
 		"test:server": "vitest src/lib/server/"
 	},
 	"devDependencies": {
