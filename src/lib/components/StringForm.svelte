@@ -21,7 +21,7 @@
 		taintedMessage: null,
 		onUpdated: ({ form: f }) => {
 			if (f.valid) {
-				toast.success(config.successMessage ?? `Folder "${f.data.stringInput}" added successfully`);
+				toast.success(config.successMessage ?? `String "${f.data.stringInput}" input successfully`);
 			} else {
 				toast.error(config.errorMessage ?? 'Please fix the errors in the form.');
 			}
