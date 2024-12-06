@@ -138,5 +138,3 @@ This script automates the setup of your development environment.
    ```bash
    ./setup.sh
    ```
-
-4. Follow the prompts and the script will handle the rest.
