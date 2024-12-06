@@ -3,7 +3,8 @@
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "bun --bun run vite dev",
+		"node": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -17,12 +18,11 @@
 		"test:components": "vitest src/lib/components/",
 		"test:components:counter": "vitest src/lib/components/Counter.spec.ts",
 		"test:components:article": "vitest src/lib/components/Article.spec.ts",
-		"test:components:tag-toggle": "vitest src/lib/components/TagToggle.spec.ts",
+		"test:components:ttoggle": "vitest src/lib/components/TagToggle.spec.ts",
 		"test:components:carousel": "vitest src/lib/components/SimpleCarousel.spec.ts",
-		"test:components:filecard": "vitest src/lib/components/FileCard.spec.ts",
-		"test:components:form": "vitest src/lib/components/Form.spec.ts",
-		"test:components:lightswitch": "vitest src/lib/components/LightSwitch.spec.ts",
-		"test:components:stringform": "vitest src/lib/components/StringForm.spec.ts",
+		"test:components:card": "vitest src/lib/components/FileCard.spec.ts",
+		"test:components:switch": "vitest src/lib/components/LightSwitch.spec.ts",
+		"test:components:form": "vitest src/lib/components/StringForm.spec.ts",
 		"test:server": "vitest src/lib/server/"
 	},
 	"devDependencies": {
