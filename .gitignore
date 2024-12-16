@@ -38,3 +38,7 @@ src/convex/_generated/
 
 # Sample Data
 sampleData.jsonl
+
+# Setup
+setup.log
+app.css.bak
