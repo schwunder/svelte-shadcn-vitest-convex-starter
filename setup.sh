@@ -1,22 +1,30 @@
 #!/usr/bin/env bash
 
-# Enable strict mode
-set -euo pipefail
-IFS=$'\n\t'
+# Enable strict mode (zsh compatible)
+if [ -n "$BASH_VERSION" ]; then
+    set -euo pipefail
+    IFS=$'\n\t'
+elif [ -n "$ZSH_VERSION" ]; then
+    set -e
+    setopt PIPE_FAIL
+    setopt KSH_ARRAYS
+    setopt SH_WORD_SPLIT
+fi
 
 # Debug mode (enable with DEBUG=true bash setup.sh)
 DEBUG=${DEBUG:-false}
+SHOW_DEBUG_TERMINAL=${SHOW_DEBUG_TERMINAL:-false}
 
 # Script constants
-readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -n "$BASH_VERSION" ]; then
+    readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+else
+    readonly SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+fi
 readonly LOG_FILE="setup.log"
 readonly CSS_FILE="src/app.css"
 readonly THEME_URL="https://next.shadcn-svelte.com/themes"
 readonly MOCK_OPENAI_KEY="sk-mock-12345-your-test-key"
-readonly TOTAL_STEPS=8
-
-# Progress tracking
-current_step=0
 
 # Color constants for better readability
 readonly RED='\033[0;31m'
@@ -32,12 +40,20 @@ error() {
     echo -e "${RED}[ERROR]${NC} $*" >&2 | tee -a "$LOG_FILE"
     exit 1
 }
-debug_log() { if [ "$DEBUG" = true ]; then echo -e "${BLUE}[DEBUG]${NC} $*" | tee -a "$LOG_FILE"; fi; }
+debug_log() {
+    if [ "$DEBUG" = true ]; then
+        # Full verbose logging to file
+        echo -e "${BLUE}[DEBUG]${NC} $*" >>"$LOG_FILE"
+        # Simplified output to terminal if needed
+        if [ "$SHOW_DEBUG_TERMINAL" = true ]; then
+            echo -e "${BLUE}•${NC} $*"
+        fi
+    fi
+}
 
 # Progress tracking function
 show_progress() {
-    current_step=$((current_step + 1))
-    log "Progress: [$current_step/$TOTAL_STEPS] $1"
+    log "$1"
 }
 
 # Helper function for user confirmation
@@ -53,30 +69,59 @@ confirm() {
     done
 }
 
+# Function to display content in a simple box
+display_content() {
+    local content="$1"
+    local width=80
+    local border=$(printf '%*s' "$width" | tr ' ' '-')
+
+    echo
+    echo "$border"
+    echo "$content" | fold -w $((width - 4)) | sed 's/^/  /'
+    echo "$border"
+    echo
+}
+
+# Debug setup function
+# Debug setup function
+setup_debug_mode() {
+    show_progress "Setting up debug mode..."
+    if confirm "Enable debug mode?"; then
+        DEBUG=true
+
+        # Create/clear the log file
+        : >"$LOG_FILE"
+
+        if confirm "Show debug output in terminal? (Less verbose than log file)"; then
+            SHOW_DEBUG_TERMINAL=true
+        else
+            SHOW_DEBUG_TERMINAL=false
+        fi
+
+        debug_log "Environment setup complete"
+        log "Script log saved to $LOG_FILE"
+    fi
+}
+
 # Cleanup function with error recovery
 cleanup() {
-    debug_log "Starting cleanup process"
-    local files=(".env" ".env.local" "setup.log" "package-lock.json" "bun.lockb" "yarn.lock" "sampleData.jsonl")
-    local dirs=(".convex" "node_modules" "dist" "build")
+    show_progress "Checking for cleanup..."
+    if confirm "Would you like to clean up previous setup files and dependencies?"; then
+        debug_log "Starting cleanup process"
+        local files=(".env" ".env.local" "setup.log" "package-lock.json" "bun.lockb" "yarn.lock" "sampleData.jsonl")
+        local dirs=(".convex" "node_modules" "dist" "build")
 
-    for file in "${files[@]}"; do
-        debug_log "Removing file: $file"
-        rm -f "$file" 2>/dev/null || true
-    done
-    for dir in "${dirs[@]}"; do
-        debug_log "Removing directory: $dir"
-        rm -rf "$dir" 2>/dev/null || true
-    done
-    log "Cleanup complete."
+        for file in "${files[@]}"; do
+            debug_log "Removing file: $file"
+            rm -f "$file" 2>/dev/null || true
+        done
+        for dir in "${dirs[@]}"; do
+            debug_log "Removing directory: $dir"
+            rm -rf "$dir" 2>/dev/null || true
+        done
+        log "Cleanup complete."
+    fi
 }
-
-# Trap for cleanup on script interruption
-cleanup_on_exit() {
-    log "Cleaning up and exiting..."
-    debug_log "Running exit cleanup"
-    exit
-}
-trap 'cleanup_on_exit' EXIT INT TERM
 
 # Check prerequisites
 check_prerequisites() {
@@ -94,33 +139,135 @@ check_prerequisites() {
     if [ ! -f "package.json" ]; then
         error "This script must be run from the project root directory where 'package.json' exists."
     fi
-}
 
-# Setup environment
-setup_environment() {
-    show_progress "Setting up environment..."
-    exec > >(tee -a "$LOG_FILE") 2>&1
-    debug_log "Environment setup complete"
-    log "Script log saved to $LOG_FILE"
+    # Create .env if it doesn't exist
+    debug_log "Checking .env file"
+    if [ ! -f ".env" ]; then
+        debug_log "Creating .env file"
+        touch .env
+        log "Created new .env file"
+    fi
 }
 
 # Install dependencies
 install_dependencies() {
     show_progress "Installing dependencies..."
-    debug_log "Running bun install"
-    bun install || error "Failed to install dependencies"
+    if confirm "Run 'bun install'?"; then
+        debug_log "Running bun install"
+        bun install || error "Failed to install dependencies"
+    fi
+}
+
+# Setup OpenAI environment with options
+setup_openai() {
+    show_progress "Setting up OpenAI..."
+    if grep -q "OPENAI_API_KEY" .env; then
+        debug_log "OpenAI API key already exists in .env"
+        return
+    fi
+
+    debug_log "No OpenAI API key found in .env"
+    log "OpenAI API key is required. You can provide your own or use a mock key for testing."
+    read -rp "Enter your OpenAI API key (or press Enter to use mock key): " api_key
+    api_key=${api_key:-$MOCK_OPENAI_KEY}
+    echo "OPENAI_API_KEY=$api_key" >>.env
+    log "OpenAI API key added to .env file"
+}
+
+# Validate ShadCN theme content
+validate_theme_content() {
+    local theme_content="$1"
+    if [[ ! "$theme_content" =~ "@layer base {" ]] ||
+        [[ ! "$theme_content" =~ ":root {" ]] ||
+        [[ ! "$theme_content" =~ ".dark {" ]] ||
+        [[ ! "$theme_content" =~ "--background:" ]] ||
+        [[ ! "$theme_content" =~ "--foreground:" ]] ||
+        [[ ! "$theme_content" =~ "--radius:" ]]; then
+        log "No valid theme content in clipboard, proceeding without copying"
+        log "Theme should contain @layer base, :root and .dark sections with CSS variables"
+        return 1
+    fi
+    return 0
+}
+
+# Setup ShadCN theme
+setup_shadcn_theme() {
+    show_progress "Setting up ShadCN theme..."
+
+    if [ ! -f "$CSS_FILE" ]; then
+        error "$CSS_FILE not found"
+    fi
+
+    if confirm "Open ShadCN theme page in browser?"; then
+        debug_log "Opening theme page in browser"
+        open "$THEME_URL" 2>/dev/null || log "Please visit: $THEME_URL"
+    else
+        log "Please visit: $THEME_URL when ready"
+    fi
+
+    if confirm "Skip theme customization? (Default styling will remain unchanged)"; then
+        log "Keeping default theme styling"
+        return
+    fi
+
+    log "Please copy the desired @layer base theme content."
+    read -rp "Press Enter when ready..."
+
+    log "Validating clipboard content..."
+    local theme_content
+    theme_content=$(pbpaste)
+    debug_log "Validating theme content"
+
+    if ! validate_theme_content "$theme_content"; then
+        return
+    fi
+
+    display_content "$theme_content"
+    if ! confirm "Proceed with this theme?"; then
+        log "Theme application cancelled"
+        return
+    fi
+
+    # Only create temp files and set trap if we're actually going to modify the theme
+    local backup_file="${CSS_FILE}.bak"
+    local temp_file="${CSS_FILE}.tmp"
+    debug_log "Backup file: $backup_file"
+    debug_log "Temp file: $temp_file"
+    trap 'rm -f "$temp_file"' EXIT
+
+    debug_log "Creating CSS file backup"
+    cp "$CSS_FILE" "$backup_file" || error "Failed to backup CSS file"
+
+    debug_log "Applying new theme"
+    {
+        echo -e "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n"
+        echo "$theme_content"
+        echo -e "\n@layer base {\n  * {\n    @apply border-border;\n  }\n  body {\n    @apply bg-background text-foreground;\n  }\n}"
+    } >"$temp_file"
+
+    mv "$temp_file" "$CSS_FILE" || error "Failed to update CSS file"
+    log "Theme applied successfully (backup saved as $backup_file)"
 }
 
 # Start Convex development server
 start_convex_server() {
     local terminal_script="cd '$PWD' && bun x convex dev"
     show_progress "Starting Convex server..."
-    debug_log "Terminal script: $terminal_script"
 
+    debug_log "Terminal script: $terminal_script"
     log "The Convex development server needs to run in a separate terminal window."
+    log "If Convex is already set up, the development server will start immediately."
+    log "If not, the CLI will guide you through a quick setup and login process first."
     log "This window must remain open for the duration of your development session."
+
     if ! confirm "Ready to open Convex server in a new terminal window?"; then
-        error "Convex server is required for development. Cannot proceed without it."
+        log "You can manually run 'bun x convex dev' in a new terminal when ready"
+        return
+    fi
+
+    if grep -q "PUBLIC_CONVEX_URL=" .env; then
+        debug_log "Convex URL already exists in .env"
+        return
     fi
 
     case "${TERM_PROGRAM:-}" in
@@ -178,77 +325,6 @@ wait_for_env_local() {
     log ".env.local file detected!"
 }
 
-# Setup OpenAI environment with options
-setup_openai() {
-    show_progress "Setting up OpenAI..."
-    if confirm "Would you like to configure OpenAI? (Skip if you don't need AI features)"; then
-        debug_log "User chose to configure OpenAI"
-        log "Setting up OpenAI environment..."
-        read -rp "Enter your OpenAI API key (or press Enter to use mock key): " api_key
-        api_key=${api_key:-$MOCK_OPENAI_KEY}
-        echo "OPENAI_API_KEY=$api_key" >>.env.local
-        cp .env.local .env || error "Failed to copy .env.local to .env"
-        log "OpenAI API key added to environment files"
-    else
-        debug_log "User skipped OpenAI configuration"
-        log "Setting up mock OpenAI key..."
-        echo "OPENAI_API_KEY=$MOCK_OPENAI_KEY" >>.env.local
-        cp .env.local .env || error "Failed to copy .env.local to .env"
-        log "Mock OpenAI API key added to environment files"
-    fi
-}
-
-# Setup ShadCN theme
-setup_shadcn_theme() {
-    show_progress "Setting up ShadCN theme..."
-    local backup_file="${CSS_FILE}.bak"
-    local temp_file="${CSS_FILE}.tmp"
-    debug_log "Backup file: $backup_file"
-    debug_log "Temp file: $temp_file"
-
-    trap 'rm -f "$temp_file"' EXIT
-
-    if [ ! -f "$CSS_FILE" ]; then
-        error "$CSS_FILE not found"
-    fi
-
-    if confirm "Open ShadCN theme page in browser?"; then
-        debug_log "Opening theme page in browser"
-        open "$THEME_URL" 2>/dev/null || log "Please visit: $THEME_URL"
-    else
-        log "Please visit: $THEME_URL when ready"
-    fi
-
-    log "Please copy the desired @layer base theme content."
-    read -rp "Press Enter when ready..."
-
-    log "Validating clipboard content..."
-    local theme_content
-    theme_content=$(pbpaste)
-    debug_log "Validating theme content"
-    if [[ ! "$theme_content" =~ "@layer base" ]] || [[ ! "$theme_content" =~ ":root" ]] || [[ ! "$theme_content" =~ ".dark" ]]; then
-        error "Invalid theme content"
-    fi
-
-    echo "$theme_content"
-    if ! confirm "Proceed with this theme?"; then
-        error "Theme application cancelled"
-    fi
-
-    debug_log "Creating CSS file backup"
-    cp "$CSS_FILE" "$backup_file" || error "Failed to backup CSS file"
-
-    debug_log "Applying new theme"
-    {
-        echo -e "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n"
-        echo "$theme_content"
-        echo -e "\n@layer base {\n  * {\n    @apply border-border;\n  }\n  body {\n    @apply bg-background text-foreground;\n  }\n}"
-    } >"$temp_file"
-
-    mv "$temp_file" "$CSS_FILE" || error "Failed to update CSS file"
-    log "Theme applied successfully (backup saved as $backup_file)"
-}
-
 # Import sample data
 import_sample_data() {
     show_progress "Importing sample data..."
@@ -274,38 +350,35 @@ import_sample_data() {
 # Start development server
 start_dev_server() {
     show_progress "Starting development server..."
-    if confirm "Open development server in browser?"; then
-        debug_log "Starting server with browser"
-        log "Starting development server with browser..."
-        bun dev --open
+    if confirm "Start development server now?"; then
+        if confirm "Open in browser?"; then
+            debug_log "Starting server with browser"
+            log "Starting development server with browser..."
+            bun dev --open
+        else
+            debug_log "Starting server without browser"
+            log "Starting development server..."
+            bun dev
+        fi
     else
-        debug_log "Starting server without browser"
-        log "Starting development server..."
-        bun dev
+        log "You can start the server later with 'bun dev'"
     fi
+    log "Setup complete! You can now continue development."
 }
 
 # Main execution
 main() {
-    # Enable debug mode if set
-    [[ "$DEBUG" = true ]] && set -x
-
-    # Ask for cleanup confirmation before any other operations
-    if confirm "Would you like to clean up previous setup files and dependencies?"; then
-        cleanup
-    fi
-
-    debug_log "Starting setup script"
+    setup_debug_mode
     check_prerequisites
-    setup_environment
+    cleanup
     install_dependencies
-    start_convex_server
-    wait_for_env_local
     setup_openai
     setup_shadcn_theme
+    start_convex_server
+    wait_for_env_local
     import_sample_data
     start_dev_server
-    log "Setup complete! You can now continue development."
+    log "Thank you for using the setup script! Happy coding!"
 }
 
 # Execute main function
